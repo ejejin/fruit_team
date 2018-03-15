@@ -6,7 +6,7 @@ using namespace std;
 
 void dumpTreeTotxt(){
   TFile *f=new TFile("py-fillrandom.root"); // opens the root file
-  TH1 *hist=(TH1*)f->Get("tree"); // creates the TTree object
+  TH1 *hist=(TH1*)f->Get("h1f"); // creates the TTree object
 //  tr->Scan(); // prints the content on the screen
 
   float a,b,c; // create variables of the same type as the branches you want to access
