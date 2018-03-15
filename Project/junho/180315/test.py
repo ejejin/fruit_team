@@ -3,8 +3,8 @@
 #sys.path.append("../")
 from ROOT import TFile, TCanvas, TPad
 
-wf= open("py-fillrandom_via_py.txt","w+")
-f = TFile("../py-fillrandom.root","READ");
+wf= open("test.txt","w+")
+f = TFile("root_from_txt.root","READ");
 
 hist=f.Get("h1f");
 Nbin = hist.GetNbinsX();
