@@ -1,7 +1,7 @@
 
 
 
-void n29_TPaveStats_TList_TText_TLatex()
+void n29_stats_TPaveStats_TList_TText_TLatex()
 {
     TCanvas *se = new TCanvas;
     TH1F *h = new TH1F("h","test",100,-3,3);
@@ -15,8 +15,10 @@ void n29_TPaveStats_TList_TText_TLatex()
     ps->SetName("mystats");   //!!!!!!!! TPaveStats, SetName()
     TList *listOfLines = ps->GetListOfLines();  // !!!!!!!!!!  from TPaveStats, get list of lines???? 
     TList *listOfLines1 = (TList*)ps->GetListOfLines();  //!!!!! I think this is better way....
-    
-    TText *tconst = (TText*)ps->GetLineWith("RMS"); // !!!!!!! TText GetLineWith
+
+    listOfLines1->Print();    
+//    TText *tconst = (TText*)ps->GetLineWith("RMS"); // !!!!!!! TText GetLineWith
+    TText *tconst = (TText*)ps->GetLineWith("Entries");
     listOfLines1->Remove(tconst);    // !!!!! seems TList is container of TText
 //    cout<<typeid(listOfLines1).name()<<"  "<<typeid(tconst).name()<<endl;
     TLatex *myt = new TLatex(0,0,"JTest");   // TLatex
