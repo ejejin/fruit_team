@@ -1,0 +1,7 @@
+0. you might need to clarify your python verion with 3. ("http://blog.csdn.net/xulingqiang/article/details/52494410")
+(root cmake  :: e.g. "cmake ../root-6  -Droofit=ON")
+
+0. http://opentutorials.org/module/2860    : root tutorial in Korean
+1. https://root.cern.ch/pyroot
+2. https://www-zeuthen.desy.de/~middell/public/pyroot/pyroot.html
+3. https://www2.physics.ox.ac.uk/it-services/python-tutorial
