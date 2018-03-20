@@ -14,31 +14,39 @@ void n3_ConfidenceIntervals()
 
 //***** first graph
     Int_t np = 100;
-    TGraph *gr = new TGraph(np);
+    TGraph *gr = new TGraph(np);    // point numbers !!!!! in definition
     gr->SetName("GraphNoError");
     Double_t x,y;       
     Int_t i;
 
+    TRandom *r = new TRandom();
+
     for(i=0; i<np; i++)
     {
-        x = gRandom->Uniform(-1,1);
+//        x = gRandom->Uniform(-1,1);
+        x = r->Uniform(-1,1);
         y = -1 + 2*x + gRandom->Gaus(0,1);
-        gr->SetPoint(i,x,y);
+        gr->SetPoint(i,x,y);        // set points into the TGraph with "SetPoint()"!!!!!!!
     }
 //    can->cd(1);    gr->Draw();
     TF1 *fpol = new TF1("fpol","pol1",-1,1);
     fpol->SetLineWidth(2);
     gr->Fit(fpol,"Q");   // "Q" makes not printing of the fit result
 //    gr->Draw();
-    
-    TGraphErrors *grint = new TGraphErrors(np);
+
+/*
+    for(Int_t ii=0; ii<np; ii++)
+    {
+        cout<<gr->GetX()[ii]<<endl;
+    }
+*/    
+    TGraphErrors *grint = new TGraphErrors(np);   //!!!!!! TGraphErrors
     grint->SetTitle("Fitted line with .95 conf. band");
     for(i=0; i<np; i++)
     {
-        grint->SetPoint(i, gr->GetX()[i], 0);     // SetPoint(Int_t i, Double_t x, Double_t y)
+        grint->SetPoint(i, gr->GetX()[i], 0);     // SetPoint(Int_t i, Double_t x, Double_t y), GetX() to get point info from TGraph !!!!!!!!
     }
-//    grint->Draw();
-    (TVirtualFitter::GetFitter())->GetConfidenceIntervals(grint, 0.95);   // set confidenceIntervals
+    (TVirtualFitter::GetFitter())->GetConfidenceIntervals(grint, 0.95);   // set confidenceIntervals!!!!! TVirtualFitter, maybe getting current fitter the "gr->Fit(fpol,"Q")" !!!!!!!
 //    grint->Draw();
     can->cd(1);
     grint->SetLineColor(kRed);
@@ -94,14 +102,4 @@ void n3_ConfidenceIntervals()
     
 
 }
-
-
-
-
-
-
-
-
-
-
 

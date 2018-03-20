@@ -4,18 +4,21 @@
 #include <fstream>
 using namespace std;
 
-void JdumpTreeTotxt(){
-    TFile *f=new TFile("py-fillrandom.root"); // opens the root file
+void Jcode_180315_ROOT_to_txt(){
+    TFile *f=new TFile("../py-fillrandom.root"); // opens the root file
     TH1 *hist=(TH1*)f->Get("h1f"); // creates the TTree object
     
     Double_t Nbin, bin, count;
    
     Nbin = hist->GetNbinsX(); 
     bin = hist->GetBinContent(1);
-    cout<<Nbin<<endl<<bin<<endl;
+//    cout<<Nbin<<endl<<bin<<endl;
  
     ofstream myfile;
-    myfile.open("example.txt");
+//    std::string str = "py-fillrandom_via_C.txt";
+    const char *str = "py-fillrandom_via_C.txt";
+    myfile.open(str);
+    cout<<"Name of output file : "<<str<<endl;
     for(Int_t i=1; i<=Nbin; i++)
     {
         bin = hist->GetBinContent(i);
@@ -23,10 +26,6 @@ void JdumpTreeTotxt(){
 
     }
     myfile.close();
-//   ofstream myfile;
-//   myfile.open ("example.txt");
-//    myfile.close();
-
 
 
 }
