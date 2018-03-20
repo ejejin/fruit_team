@@ -1,4 +1,4 @@
-#input/output txt format :: Start_of_bin End_of_bin Entry
+#input/output txt format :: Nth_bin Start_of_bin End_of_bin Entry
 #filename :: D1H_ROOT_TXT_conversion.py  
 
 def D1H_root_to_txt(filename, outputpath = ''):
