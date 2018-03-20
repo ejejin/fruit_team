@@ -19,11 +19,12 @@ def D1H_root_to_txt(filename, outputpath = ''):
     Nbin = hist.GetNbinsX();
 
     for ii in range(1,Nbin+1):
+        bin_num = ii
         bin_l = hist.GetBinLowEdge(ii)
         bin_width = hist.GetBinWidth(ii);
         bin_h = bin_l + bin_width;
         binCont = hist.GetBinContent(ii);
-        wf.write("%f %f %f\n" %(bin_l,bin_h,binCont))
+        wf.write("%i %f %f %f\n" %(bin_num,bin_l,bin_h,binCont))
 
     f.Close()
 
@@ -40,16 +41,16 @@ def D1H_txt_to_root(filename, outputpath=''):
     lineList = f.readlines()
     Nbin = (len(lineList))     # get number of bins
     Line_string = str(lineList[0])
-    bin_init,_,_ = Line_string.split();  bin_init = float(bin_init)   # get initial bin
+    _,bin_init,_,_ = Line_string.split();  bin_init = float(bin_init)   # get initial bin
     Line_string = str(lineList[len(lineList)-1])
-    _,bin_final,_ = Line_string.split();  bin_final = float(bin_final)   # get final bin
+    _,_,bin_final,_ = Line_string.split();  bin_final = float(bin_final)   # get final bin
     f.seek(0)    # reset python read line
 
     hist = TH1D("h1f","h1f",Nbin,bin_init,bin_final)
     total_e = 0
     for i in range(1,Nbin+1):
         Line_string = str(f.readline())
-        _,_,bin_c = Line_string.split();
+        _,_,_,bin_c = Line_string.split();
         bin_c = float(bin_c)
         hist.SetBinContent(i,bin_c)
         total_e = total_e + bin_c
