@@ -1,10 +1,12 @@
-from ROOT import TFile, TCanvas, TPad, TH1D, TLatex, TStyle, gStyle, TText, gPad
+from ROOT import TFile, TCanvas, TPad, TH1D, TLatex, TStyle, gStyle, TText, gPad, TPaveText
 from inspect import currentframe, getframeinfo
 
-can = TCanvas("can","can",200,10,700,700);
+#gStyle.SetOptStat(0)
+can = TCanvas("can","can",200,10,500,500);
 #pad = TPad("pad","pad",0,0,1,1)
 #can.cd(pad)
 f = open("py-fillrandom_via_py.txt","r")
+#f = open("py-fillrandom_via_py2.txt","r")
 #Line_string = str(f.readline())
 #bin_init,_,_ = Line_string.split();   bin_init = float(bin_init)   # get initial bin 
 
@@ -24,11 +26,23 @@ for i in range(1,Nbin+1):
     bin_c = float(bin_c)
     hist.SetBinContent(i,bin_c)
     total_e = total_e + bin_c
-#gStyle.SetOptStat()
+total_e = int(total_e)
 hist.Draw()
+print(hist.GetMaximumBin())
+text = TText(hist.GetXaxis().GetBinCenter(2), hist.GetYaxis().GetBinCenter(1), "Recycled. Total Entry : %i" %total_e)
+text.SetTextFont(10)
+text.Draw()
 gPad.Update()
 can.Update()
 
+'''
+pave1 = TPaveText(0.1,0.1,0.9,0.98); 
+pave1.SetFillColor(42);
+pave1.AddText("Recycled")
+pave1.Draw()
+gPad.Update()
+can.Update()
+'''
 
 '''
  ## I have tried to modified and upload the stats box, but failed.. is this differenct from C++??
@@ -59,6 +73,6 @@ can.Update()
 '''
 
 
-wf = TFile("root_from_txt.root","RECREATE")
+wf = TFile("root_from_txt2.root","RECREATE")
 hist.Write()
 wf.Close()

@@ -3,8 +3,9 @@
 #sys.path.append("../")
 from ROOT import TFile, TCanvas, TPad
 
-wf= open("py-fillrandom_via_py.txt","w+")
-f = TFile("../py-fillrandom.root","READ");
+wf= open("py-fillrandom_via_py2.txt","w+")
+#f = TFile("../py-fillrandom.root","READ");
+f = TFile("root_tree_from_txt.root");
 
 hist=f.Get("h1f");
 Nbin = hist.GetNbinsX();
