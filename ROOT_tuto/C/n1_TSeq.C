@@ -17,10 +17,10 @@ void n1_TSeq()
         cout<<"Element : "<<i<<endl;
     }
 */
-/*
+
     for(auto i : TSeqI(10,-10,-3))
     {cout<<"Element : "<<i<<endl;}
-*/
+
 /*
     TSeqUL ulSeq(2,30,3);   // for stl algorithm, which I don't know..
     for_each(begin(ulSeq),end(ulSeq),[](ULong_t i){cout << "For each: " << i <<endl;});
