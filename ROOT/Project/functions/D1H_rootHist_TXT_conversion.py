@@ -26,6 +26,7 @@ def D1H_roothist_to_txt(filename, outputpath = ''):
     else:
         if(outputpath[0] == "/"):
             filetxt = outputpath+ "/" + FILENAME.replace(".root","_F.txt")
+            filetxt = filetxt.replace("//","/")
         elif(outputpath[0] == "~"):
             filetxt = outputpath.replace("~",os.environ['HOME']) + "/" + FILENAME.replace(".txt","_F.root")
             filetxt = filetxt.replace("//","/")
