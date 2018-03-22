@@ -106,7 +106,7 @@ def D1H_txt_to_roothist(filename, outputpath=''):
     _,_,bin_final,_ = Line_string.split();  bin_final = float(bin_final)   # get final bin
     f.seek(0)    # reset python read line
 
-    hist = TH1D("h1f","h1f",Nbin,bin_init,bin_final)
+    hist = TH1D("hist","hist",Nbin,bin_init,bin_final)
     total_e = 0
     for i in range(1,Nbin+1):
         Line_string = str(f.readline())
