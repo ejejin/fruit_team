@@ -1,26 +1,37 @@
 #input/output txt format :: Nth_bin Start_of_bin End_of_bin Entry
-#filename :: D1H_rootHis_TXT_conversion.py  
+#filename :: D1H_rootHist_TXT_conversion.py  
 
-def D1H_root_to_txt(filename, outputpath = ''):
+def D1H_roothist_to_txt(filename, outputpath = ''):
     from ROOT import TFile, TCanvas, TPad
     import os
 
-    filename = os.getcwd() + "/" + filename   # get the path included filename
+    if(filename[0]=="/"):
+        filename = filename
+    else:    
+        filename = os.getcwd() + "/" + filename   # get the path included filename
     loca=len(filename)
     for i in range (1,len(filename)+1):       # find the "/" location
         if(filename[-i] == "/"):
             loca = i-1
             break
-
+    
     FILENAME = filename.replace(filename[:-loca],"")   # this is the shorten filename
 #    print(FILENAME, "******")   
 
     filetxt = filename.replace(".root","_F.txt")
+    filetxt = filetxt.replace("//","/")
     if(outputpath==''):
         wf= open(filetxt,"w+")
         print(filetxt,  " text file is generated !!!")
     else:
-        filetxt = os.getcwd() + "/" + outputpath+ "/" + FILENAME.replace(".root","_F.txt")
+        if(outputpath[0] == "/"):
+            filetxt = outputpath+ "/" + FILENAME.replace(".root","_F.txt")
+        elif(outputpath[0] == "~"):
+            filetxt = outputpath.replace("~",os.environ['HOME']) + "/" + FILENAME.replace(".txt","_F.root")
+            filetxt = filetxt.replace("//","/")
+        else:
+            filetxt = os.getcwd() + "/" + outputpath+ "/" + FILENAME.replace(".root","_F.txt")
+            filetxt = filetxt.replace("//","/")
         wf= open(filetxt,"w+")
         print(filetxt,  " text file is generated !!!")
 
@@ -38,13 +49,17 @@ def D1H_root_to_txt(filename, outputpath = ''):
         wf.write("%i %f %f %f\n" %(bin_num,bin_l,bin_h,binCont))
 
     f.Close()
+    filetxt = filetxt.replace("//","/")
     return filetxt
 
 
 
 
 
-def D1H_txt_to_root(filename, outputpath=''):
+
+
+
+def D1H_txt_to_roothist(filename, outputpath=''):
     from ROOT import TFile, TCanvas, TPad, TH1D, TLatex, TStyle, gStyle, TText, gPad, TPaveText
     from inspect import currentframe, getframeinfo
     import os
@@ -52,7 +67,10 @@ def D1H_txt_to_root(filename, outputpath=''):
     #gStyle.SetOptStat(0)
     can = TCanvas("can","can",200,10,500,500);
 
-    filename = os.getcwd() + "/" + filename   # get the path included filename
+    if(filename[0]=="/"):
+        filename = filename
+    else:
+        filename = os.getcwd() + "/" + filename   # get the path included filename
     loca=len(filename)
     for i in range (1,len(filename)+1):       # find the "/" location
         if(filename[-i] == "/"):
@@ -63,6 +81,7 @@ def D1H_txt_to_root(filename, outputpath=''):
 #    print(FILENAME, "******")    
 
     fileroot = filename.replace(".txt","_F.root")
+    fileroot = fileroot.replace("//","/")
     f = open(filename,"r")
 
     lineList = f.readlines()
@@ -93,9 +112,18 @@ def D1H_txt_to_root(filename, outputpath=''):
         wf = TFile(fileroot,"RECREATE")
         print(fileroot, " root file is generated !!!")
     else:
-        fileroot = os.getcwd() + "/" + outputpath+ "/" + FILENAME.replace(".txt","_F.root")
+        if(outputpath[0] == "/"):
+            fileroot = outputpath+ "/" + FILENAME.replace(".txt","_F.root")
+            fileroot = fileroot.replace("//","/")
+        elif(outputpath[0] == "~"):
+            fileroot = outputpath.replace("~",os.environ['HOME']) + "/" + FILENAME.replace(".txt","_F.root")
+            fileroot = fileroot.replace("//","/")
+        else:
+            fileroot = os.getcwd() + "/" + outputpath+ "/" + FILENAME.replace(".txt","_F.root")
+            fileroot = fileroot.replace("//","/")
         wf = TFile(fileroot,"RECREATE")
         print(fileroot, " root file is generated !!!")
     hist.Write()
     wf.Close()
+    fileroot = fileroot.replace("//","/")
     return fileroot
