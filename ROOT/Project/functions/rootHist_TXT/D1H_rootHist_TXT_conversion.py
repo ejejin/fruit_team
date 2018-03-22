@@ -48,11 +48,13 @@ def D1H_roothist_to_txt(filename, outputpath = ''):
         key = ITER.Next()
 #    print(LIST); print(len(LIST))
 
+    OutputList = []
     for ijk in range(0,len(LIST)):
         hist = f.Get(LIST[ijk]) 
         Nbin = hist.GetNbinsX()
         Filetxt = filetxt + LIST[ijk] + "_F.txt"
         wf= open(Filetxt,"w+")
+        OutputList.append(Filetxt)
         print(Filetxt, "is generated")
         for ii in range(1,Nbin+1):
             bin_num = ii
@@ -63,7 +65,7 @@ def D1H_roothist_to_txt(filename, outputpath = ''):
             wf.write("%i %f %f %f\n" %(bin_num,bin_l,bin_h,binCont))
 
     f.Close()
-    return filetxt
+    return OutputList
 
 
 
