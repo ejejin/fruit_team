@@ -52,7 +52,7 @@ def D1H_roothist_to_txt(filename, outputpath = ''):
     for ijk in range(0,len(LIST)):
         hist = f.Get(LIST[ijk]) 
         Nbin = hist.GetNbinsX()
-        Filetxt = filetxt + LIST[ijk] + "_F.txt"
+        Filetxt = filetxt +"_"+ LIST[ijk] + "_F.txt"
         wf= open(Filetxt,"w+")
         OutputList.append(Filetxt)
         print(Filetxt, "is generated")
