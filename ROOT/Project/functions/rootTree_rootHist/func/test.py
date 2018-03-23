@@ -30,9 +30,9 @@ def main():
     print("\n")
     print(DicHistList) 
 
-    AA = n55_set_histograms.SET_HIST()
-    AA1 = AA.set_histograms(FileNameList[2], FileNameList[0], histo_xrange)
-    print(AA1)
+#    AA = n55_set_histograms.SET_HIST()
+#    AA1 = AA.set_histograms(FileNameList[2], FileNameList[0], histo_xrange)
+#    print(AA1)
 
 
 if __name__ == "__main__":
