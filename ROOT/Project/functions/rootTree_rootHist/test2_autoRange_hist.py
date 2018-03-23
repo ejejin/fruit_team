@@ -17,20 +17,24 @@ t1.SetBranchAddress("py",py)
 t1.SetBranchAddress("pz",pz)
 
 ENUM = t1.GetEntries()
-print(ENUM)
-lowEdge, highEdge = 0,0
+#print(ENUM)
 for i in range(ENUM):
     t1.GetEntry(i)
 #### you can put condition here
+#    if(i<3):
+#        print(px[0])
+    if(i==0):
+        lowEdge = px[0]
+        highEdge = px[0]
     if(px[0] < lowEdge):
         lowEdge = px[0]
     if(px[0] > highEdge):
         highEdge = px[0]
 
-#print(lowEdge);print(highEdge)
+print(lowEdge);print(highEdge)
 lowEdge = lowEdge - (highEdge-lowEdge)*0.1
 highEdge = highEdge + (highEdge-lowEdge)*0.1
-#print(lowEdge);print(highEdge)
+print(lowEdge);print(highEdge)
 
 hist1 = TH1F("hist1","hist1", 100, lowEdge, highEdge)
 for i in range(ENUM):
