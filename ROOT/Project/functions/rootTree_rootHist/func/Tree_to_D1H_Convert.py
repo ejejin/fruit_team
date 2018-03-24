@@ -1,5 +1,5 @@
 
-from ROOT import TFile, TH1D, TH1F, TCanvas, TColor, TGaxis, TPad
+from ROOT import TFile, TH1D, TH1F, TCanvas, TColor, TGaxis, TPad, gBenchmark
 import os
 import numpy
 #from n6_Fill_histograms import Fill_histograms
@@ -135,6 +135,7 @@ def set_histo_xrange(FILENAME,BRANCHLISTALL):
 
 
 def Fill_histograms(FILENAME,BRANCHLISTALL,DICHISTLIST):
+    gBenchmark.Start("Filling & Writing Histograms")
     DicNumpyArray_branch = {}
     for numpyarray in BRANCHLISTALL:
         a = numpy.array([0],'d')
@@ -160,7 +161,7 @@ def Fill_histograms(FILENAME,BRANCHLISTALL,DICHISTLIST):
 
         key = ITER.Next()
 #    print(DICHISTLIST)
-
+#    gBenchmark.Show("filling")
     return DICHISTLIST
 
 
@@ -212,11 +213,18 @@ def main():
     for i in range(len(dicHistList)):
         for j in range(len(dicHistList.values()[i])):
             dicHistList.values()[i][j].Write()
-
+    print("")
+    print("////////////////////////////////////////////////")
     print("outputfile : ")
     print(Name_Output_File)
+    print("////////////////////////////////////////////////")
+    print("")
     outfile.Close()
 
+    print("*********************************************************************************************")
+    gBenchmark.Show("Filling & Writing Histograms")
+    print("*********************************************************************************************")
+#############################################################################
 
 
 if __name__=="__main__":
