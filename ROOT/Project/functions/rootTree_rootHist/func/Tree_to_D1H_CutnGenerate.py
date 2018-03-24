@@ -120,8 +120,10 @@ def WhetherAddCut(BRANCHLISTEACHTREE):
 
 
 def main():
+
+    INPUT_FILE_INCLUDING_PATH = "../../../root_generator/tree/root2_tree.root"
   
-    FileNameList = read_file_name("../../../root_generator/tree/root2_tree.root")
+    FileNameList = read_file_name(INPUT_FILE_INCLUDING_PATH)
     BranchListAll = get_branch_list_all(FileNameList[2])
     BranchListEachTree = get_branch_list_each_tree(FileNameList[2])
 

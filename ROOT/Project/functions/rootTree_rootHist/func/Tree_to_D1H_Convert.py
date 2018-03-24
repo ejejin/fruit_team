@@ -172,12 +172,36 @@ def Fill_histograms(FILENAME,BRANCHLISTALL,DICHISTLIST):
 ################################## main code #########################
 
 def main():
-    FileNameList = read_file_name("../../../root_generator/tree/root2_tree.root")
+
+#    INPUT_FILE_INCLUDING_PATH = "../../../root_generator/tree/root2_tree.root"
+    INPUT_FILE_INCLUDING_PATH = "root2_tree_cut_tree.root"     #FIXME #FIXME #FIXME  #FIXME #FIXME #FIXME #FIXME 
+
+
+
+    FileNameList = read_file_name(INPUT_FILE_INCLUDING_PATH)
     BranchListAll = get_branch_list_all(FileNameList[2])
     BranchListEachTree = get_branch_list_each_tree(FileNameList[2])
     histo_xrange = set_histo_xrange(FileNameList[2], BranchListAll)
 
-    NBins = 100
+#    print(BranchListEachTree)
+  
+ 
+    IJK = 0     # number of all element included in all tree.
+    for i in range(len(BranchListEachTree.keys())):
+        Tlist = (BranchListEachTree.keys())
+#        print(BranchListEachTree[Tlist[i]])
+        for j in range(len(BranchListEachTree[Tlist[i]])):
+            IJK = IJK +1 
+#    print(IJK)
+
+    NBins = []
+    for ii in range(IJK):
+        NBins.append(100)
+
+#    print("NBins =", NBins)
+#    NBins = [,,,,,]      #FIXME #FIXME #FIXME #FIXME #FIXME #FIXME #FIXME #FIXME #FIXME #FIXME #FIXME #FIXME #FIXME #FIXME 
+
+
     f = TFile(FileNameList[2],"READ")
     dirlist = f.GetListOfKeys()
     ITER = dirlist.MakeIterator()
@@ -195,10 +219,12 @@ def main():
         while key_b:
             Namehist = FileNameList[0] + "_" + tree.GetName() + "_" + key_b.GetName()
 #            print(Namehist)
+            ijk = 0
             for j in range(len(histo_xrange[tree.GetName()])):
                 if key_b.GetName() in histo_xrange[tree.GetName()].keys()[j]:
-                     hist = TH1D(Namehist, Namehist, NBins, histo_xrange[tree.GetName()].values()[j][0], histo_xrange[tree.GetName()].values()[j][1])
+                     hist = TH1D(Namehist, Namehist, NBins[ijk], histo_xrange[tree.GetName()].values()[j][0], histo_xrange[tree.GetName()].values()[j][1])
                      histList.append(hist)
+                     ijk = ijk + 1
                 else:
                     continue
 
@@ -227,6 +253,8 @@ def main():
     print("*********************************************************************************************")
     gBenchmark.Show("Filling & Writing Histograms")
     print("*********************************************************************************************")
+
+    print("NBins =", NBins)
 #############################################################################
 
 
