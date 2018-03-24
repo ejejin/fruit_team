@@ -150,8 +150,11 @@ def Fill_histograms(FILENAME,BRANCHLISTALL,DICHISTLIST):
         for i in range(len(DicNumpyArray_branch)):
             tree.SetBranchAddress(DicNumpyArray_branch.keys()[i], DicNumpyArray_branch.values()[i])
         ENTRY = tree.GetEntries()
+        print("for tree", tree.GetName())
         for i in range(ENTRY):
             tree.GetEntry(i)
+            if(i%5000 == 0):
+                print("now looping", i, "th Events, total of ", ENTRY, "events")
             for j in range(len(DICHISTLIST[tree.GetName()])):
                 for k in range(len(DICHISTLIST[tree.GetName()])):
                     if(DicNumpyArray_branch.keys()[j] in DICHISTLIST[tree.GetName()][k].GetName()):
