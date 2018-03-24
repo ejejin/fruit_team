@@ -165,7 +165,7 @@ def Fill_histograms(FILENAME,BRANCHLISTALL,DICHISTLIST):
 
 
 
-
+################################## main code #########################
 
 def main():
     FileNameList = read_file_name("../../../root_generator/tree/root2_tree.root")
@@ -213,6 +213,7 @@ def main():
         for j in range(len(dicHistList.values()[i])):
             dicHistList.values()[i][j].Write()
 
+    print("outputfile : ")
     print(Name_Output_File)
     outfile.Close()
 
