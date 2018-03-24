@@ -133,13 +133,20 @@ def set_histo_xrange(FILENAME,BRANCHLISTALL):
 
 
 
-def set_histograms(FILENAME,S_FILENAME, HISTO_XRANGE, NBins=100):
-    f = TFile(FILENAME,"READ")
+
+
+def main():
+    FileNameList = read_file_name("../../../root_generator/tree/root2_tree.root")
+    BranchListAll = get_branch_list_all(FileNameList[2])
+    BranchListEachTree = get_branch_list_each_tree(FileNameList[2])
+    histo_xrange = set_histo_xrange(FileNameList[2], BranchListAll)
+
+    NBins = 100
+    f = TFile(FileNameList[2],"READ")
     dirlist = f.GetListOfKeys()
     ITER = dirlist.MakeIterator()
     key = ITER.Next()
     DichistList = {}
-#    DichistList = dict()
     while key:
         histList = []
         NamehistList = []
@@ -150,30 +157,22 @@ def set_histograms(FILENAME,S_FILENAME, HISTO_XRANGE, NBins=100):
         ITER_b = branchlist.MakeIterator()
         key_b = ITER_b.Next()
         while key_b:
-            Namehist = S_FILENAME + "_" + tree.GetName() + "_" + key_b.GetName()+"_hist"
+            Namehist = FileNameList[0] + "_" + tree.GetName() + "_" + key_b.GetName()+"_hist"
 #            print(Namehist)
-            for j in range(len(HISTO_XRANGE[tree.GetName()])):
-                if key_b.GetName() in HISTO_XRANGE[tree.GetName()].keys()[j]:
-                     hist = TH1D(Namehist, Namehist, NBins, HISTO_XRANGE[tree.GetName()].values()[j][0], HISTO_XRANGE[tree.GetName()].values()[j][1])
+            for j in range(len(histo_xrange[tree.GetName()])):
+                if key_b.GetName() in histo_xrange[tree.GetName()].keys()[j]:
+                     hist = TH1D(Namehist, Namehist, NBins, histo_xrange[tree.GetName()].values()[j][0], histo_xrange[tree.GetName()].values()[j][1])
                      histList.append(hist)
                 else:
                     continue
-            
+
             key_b = ITER_b.Next()
         DichistList[tree.GetName()] = histList
         key = ITER.Next()
-    
+
     print (DichistList)
-    return DichistList
 
 
-def main():
-    FileNameList = read_file_name("../../../root_generator/tree/root2_tree.root")
-    BranchListAll = get_branch_list_all(FileNameList[2])
-    BranchListEachTree = get_branch_list_each_tree(FileNameList[2])
-    histo_xrange = set_histo_xrange(FileNameList[2], BranchListAll)
-    DicHistList = set_histograms(FileNameList[2], FileNameList[0], histo_xrange)
-    print(DicHistList)
 
 
 if __name__=="__main__":
