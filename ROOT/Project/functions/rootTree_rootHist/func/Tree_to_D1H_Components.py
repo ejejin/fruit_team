@@ -1,0 +1,16 @@
+from ROOT import TFile, TH1D, TH1F, TCanvas, TColor, TGaxis, TPad
+import os
+import numpy
+from n1_read_file_name import read_file_name
+from n2_get_branch_list import get_branch_list_each_tree
+    
+FileNameList = read_file_name("../../../root_generator/tree/root2_tree.root")
+BranchListEachTree = get_branch_list_each_tree(FileNameList[2])
+#print(BranchListEachTree)
+
+for i in range(len(BranchListEachTree)):
+    print("compenets below :")
+    print("The Tree name is : ",BranchListEachTree.keys()[i])
+    for j in range(len(BranchListEachTree.values()[i])):
+        print("        it contains : ", BranchListEachTree.values()[i][j])
+    print("")
