@@ -66,6 +66,7 @@ def D1H_roothist_to_txt(filename, outputpath = '.'):
             wf.write("%i %f %f %f\n" %(bin_num,bin_l,bin_h,binCont))
 
     f.Close()
+#    print(OutputList)
     return OutputList
 
 
@@ -143,6 +144,7 @@ def D1H_txt_to_roothist(filename, outputpath=''):
     hist.Write()
     wf.Close()
     fileroot = fileroot.replace("//","/")
+#    print(fileroot)
     return fileroot
 
 
