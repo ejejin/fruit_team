@@ -1,17 +1,22 @@
 from ROOT import gBenchmark
 gBenchmark.Start("All in One")
-
-
 import sys
+
+sys.path.append("/Users/leejunho/Desktop/git/python3Env/group_study/fruit_team/ROOT/Project/functions/rawTxt_Tree_root")
+Infile = "/Users/leejunho/Desktop/git/python3Env/group_study/fruit_team/ROOT/Project/tranfer_test/data/concrete.txt"
+from Raw_text_to_Tree_root import Raw_text_to_Tree_root
+To_Tree = Raw_text_to_Tree_root(Infile,".")
+
+
 sys.path.append("/Users/leejunho/Desktop/git/python3Env/group_study/fruit_team/ROOT/Project/functions/rootTree_rootHist/func")
 
 from Tree_to_D1H_Components import Tree_to_D1H_Components
-Infile = "/Users/leejunho/Desktop/git/python3Env/group_study/fruit_team/ROOT/Project/root_generator/tree/TestIn2_1.root"
-Tree_to_D1H_Components(Infile)
+#Infile = "/Users/leejunho/Desktop/git/python3Env/group_study/fruit_team/ROOT/Project/root_generator/tree/TestIn2_1.root"
+Tree_to_D1H_Components(To_Tree)
 
 
 from Tree_to_D1H_CutnGenerate import REGENERATE_TREE_WITH_CUT
-NEW_Tree_PATH = REGENERATE_TREE_WITH_CUT(Infile,"./")
+NEW_Tree_PATH = REGENERATE_TREE_WITH_CUT(To_Tree,"./")
 #print(NEW_Tree_PATH)
 
 
