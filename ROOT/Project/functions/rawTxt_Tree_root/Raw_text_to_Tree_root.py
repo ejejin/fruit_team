@@ -20,7 +20,7 @@ def Raw_text_to_Tree_root(filename, outputpath = "."):
     FILENAME = filename.replace(filename[:-loca],"")   # this is the shorten filename, excluded path 
     Filename = FILENAME.replace(".txt","")
     filename_NoTxt = filename.replace(filename[len(filename)-loca:len(filename)],"")
-#    print(FILENAME); print(Filename); print(filename_NoTxt)
+#    print(FILENAME); print(Filename); print(filename);print(filename_NoTxt)
 
     outName = Filename + "_tree.root"
 
@@ -70,7 +70,7 @@ def Raw_text_to_Tree_root(filename, outputpath = "."):
     tree.Write()
     outFile.Close()
     f.close()
-    return outfileName
+    return filename
 
 
 def main():
