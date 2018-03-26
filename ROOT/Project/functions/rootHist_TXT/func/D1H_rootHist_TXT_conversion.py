@@ -2,7 +2,7 @@
 #input/output txt format :: Nth_bin Start_of_bin End_of_bin Entry
 #filename :: D1H_rootHist_TXT_conversion.py  
 
-def D1H_roothist_to_txt(filename, outputpath = ''):
+def D1H_roothist_to_txt(filename, outputpath = '.'):
     from ROOT import TFile, TCanvas, TPad
     import os
 
