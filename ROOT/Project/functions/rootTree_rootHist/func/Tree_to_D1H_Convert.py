@@ -120,8 +120,8 @@ def set_histo_xrange(FILENAME,BRANCHLISTALL):
                         highEdge[j] = DicNumpyArray_branch.values()[j][0]
 #        print(highEdge)
         for k in range(len(DicNumpyArray_branch)):
-            lowEdge[k] = lowEdge[k] - (highEdge[k]-lowEdge[k])*0.1
-            highEdge[k] = highEdge[k] + (highEdge[k]-lowEdge[k])*0.1
+            lowEdge[k] = lowEdge[k] - (highEdge[k]-lowEdge[k])*0.05         ###### range setting  #FIXME
+            highEdge[k] = highEdge[k] + (highEdge[k]-lowEdge[k])*0.05      
         for l in range(len(DicNumpyArray_branch)):
             tree_xrange[DicNumpyArray_branch.keys()[l]] = [lowEdge[l], highEdge[l]]
 
