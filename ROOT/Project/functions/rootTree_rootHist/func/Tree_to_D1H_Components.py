@@ -7,9 +7,8 @@ def Tree_to_D1H_Components(filename):
     from n1_read_file_name import read_file_name
     from n2_get_branch_list import get_branch_list_each_tree
 
-    INPUT_FILE_INCLUDING_PATH = "../../../root_generator/tree/root2_tree.root"
     
-    FileNameList = read_file_name(INPUT_FILE_INCLUDING_PATH)
+    FileNameList = read_file_name(filename)
     BranchListEachTree = get_branch_list_each_tree(FileNameList[2])
 #    print(BranchListEachTree)
 
