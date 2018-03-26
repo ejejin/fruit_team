@@ -183,10 +183,11 @@ def Fill_histograms(FILENAME,BRANCHLISTALL,DICHISTLIST):
 
 ################################## main code #########################
 
-def CONVERT_WORKING(filename, outputpath = "." ):
+def CONVERT_WORKING(filename, outputpath = "" ):
 
 
     FileNameList = read_file_name(filename)
+    print(FileNameList)
     BranchListAll = get_branch_list_all(FileNameList[2])
     BranchListEachTree = get_branch_list_each_tree(FileNameList[2])
     histo_xrange = set_histo_xrange(FileNameList[2], BranchListAll)
@@ -226,7 +227,7 @@ def CONVERT_WORKING(filename, outputpath = "." ):
         key_b = ITER_b.Next()
         while key_b:
 #            Namehist = FileNameList[0] + "_" + tree.GetName() + "_" + key_b.GetName()
-            Namehist = FileNameList[0] + "_" + key_b.GetName()
+            Namehist = FileNameList[0] + "_"+ tree.GetName() + "_" + key_b.GetName()
 #            print(FileNameList[0])
 #            print(tree.GetName())
             ijk = 0
@@ -247,7 +248,7 @@ def CONVERT_WORKING(filename, outputpath = "." ):
     dicHistList =  Fill_histograms(FileNameList[2], BranchListAll, DichistList)
 #    print(dicHistList)
 
-    print(outputpath)
+#    print(outputpath)
     if(outputpath == ''):
         Name_Output_File = FileNameList[3] + "/" + FileNameList[0] + "_hist.root"
         Name_Output_File = Name_Output_File.replace("//","/")

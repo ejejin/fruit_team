@@ -90,15 +90,19 @@ def Noti():
 
 def BreakOrNot(BRANCHLISTEACHTREE):
 
+#    for i in range(len(BRANCHLISTEACHTREE)):
+    BRANCHLISTEACHTREE = {BRANCHLISTEACHTREE.keys()[0]:sorted(BRANCHLISTEACHTREE.items()[0][1])}
     print("compenets below :")
     print("\n")
+
     for i in range(len(BRANCHLISTEACHTREE)):
         print("compenets below :")
         print("The Tree name is : ",BRANCHLISTEACHTREE.keys()[i])
         for j in range(len(BRANCHLISTEACHTREE.values()[i])):
-            print("        it contains : ", BRANCHLISTEACHTREE.values()[i][j])
+            print(j, "      it contains : ",j, BRANCHLISTEACHTREE.values()[i][j])
         print("\n")   
  
+    
     print("Have put reasonable CUT ?")
     DETER = raw_input("(Y/N) : ")
     return DETER
@@ -120,10 +124,11 @@ def WhetherAddCut(BRANCHLISTEACHTREE):
 
 
 
-def REGENERATE_TREE_WITH_CUT(filename, outputpath = '.'):
+def REGENERATE_TREE_WITH_CUT(filename, outputpath = ''):
 
   
     FileNameList = read_file_name(filename)
+#    print(FileNameList)
     BranchListAll = get_branch_list_all(FileNameList[2])
     BranchListEachTree = get_branch_list_each_tree(FileNameList[2])
 
@@ -206,8 +211,8 @@ def REGENERATE_TREE_WITH_CUT(filename, outputpath = '.'):
                 for k in range(len(DicNumpyArray_branch)):
                     DicNumpyArray_branch_w.values()[k][0] = DicNumpyArray_branch.values()[k][0]
                 if(                                                    #FIXME#FIXME#FIXME#FIXME#FIXME#FIXME#FIXME#FIXME#FIXME#FIXME
-                    (DicNumpyArray_branch.values()[0][0] > 0.5)          # [i][0]  means "i"th branch of each tree, [0] don't change   #FIXME#FIXME#FIXME#FIXME
-                    & (DicNumpyArray_branch.values()[1][0] > 0.5)        #FIXME#FIXME#FIXME#FIXME#FIXME#FIXME#FIXME#FIXME#FIXME#FIXME#FIXME
+                    (DicNumpyArray_branch.values()[6][0] > 30)          # [i][0]  means "i+1"th branch of each tree, [0] don't change   #FIXME#FIXME#FIXME#FIXME
+                    & (DicNumpyArray_branch.values()[0][0] > 0.5)        #FIXME#FIXME#FIXME#FIXME#FIXME#FIXME#FIXME#FIXME#FIXME#FIXME#FIXME
                   ):
                     ijk = ijk + 1
                     tree_f.Fill()

@@ -25,23 +25,34 @@ def Raw_text_to_Tree_root(filename, outputpath = "."):
     outName = Filename + "_tree.root"
 
     if(outputpath == ''):
-        outfileName = filename_NoTxt + "/" + outName
+        outfileName = filename_NoTxt + "/" + Filename
         outfileName = outfileName.replace("//","/")
 #        print("!@#!@!@#!@ ",outfileName)
     elif(outputpath[0] == "/"):
-        outfileName = outputpath + "/" + outName
+        outfileName = outputpath + "/" + Filename
         outfileName = outfileName.replace("//","/")
 #        print("!@#!@!@#!@ ",outfileName)
     elif(outputpath[0] == "~"):
-        outfileName = outputpath.replace("~",os.environ['HOME']) + "/" + outName
+        outfileName = outputpath.replace("~",os.environ['HOME']) + "/" + Filename
         outfileName = outfileName.replace("//","/")
 #        print("!@#!@!@#!@ ",outfileName)
     else:
-        outfileName = os.getcwd() + "/" + outputpath+ "/" + outName
+        outfileName = os.getcwd() + "/" + outputpath+ "/" + Filename
         outfileName = outfileName.replace("//","/")
 #        print("!@#!@!@#!@ ",outfileName)
 
+#    isExists=os.path.exists(outfileName)
+#    if not isExists:
+#        os.makedirs(outfileName)
+#    else:
+#        print("*****************************************************")
+#        print("There is already a file with same name, please check!")
+#        print("*****************************************************")
 
+#    SAVE_DIR = outfileName
+
+    outfileName = outfileName + "_tree.root"
+#    print(outfileName)
     outFile = TFile(outfileName,"RECREATE")
     tree = TTree(Filename,Filename)
 
@@ -70,7 +81,7 @@ def Raw_text_to_Tree_root(filename, outputpath = "."):
     tree.Write()
     outFile.Close()
     f.close()
-    print(outfileName)
+#    print("!@#!@@!#$@$@#",outfileName)
     return outfileName
 
 
