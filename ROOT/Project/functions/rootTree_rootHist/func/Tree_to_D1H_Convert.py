@@ -25,7 +25,7 @@ def read_file_name(filename):             # returning [filename, filename.root, 
     filename_NoRoot = filename.replace(filename[len(filename)-loca:len(filename)],"")
 
     filelist = [FILE, FILENAME, filename, filename_NoRoot]
-    print(filelist)
+#    print(filelist)
     return(filelist)
 
 
@@ -225,8 +225,10 @@ def CONVERT_WORKING(filename, outputpath = "." ):
         ITER_b = branchlist.MakeIterator()
         key_b = ITER_b.Next()
         while key_b:
-            Namehist = FileNameList[0] + "_" + tree.GetName() + "_" + key_b.GetName()
-#            print(Namehist)
+#            Namehist = FileNameList[0] + "_" + tree.GetName() + "_" + key_b.GetName()
+            Namehist = FileNameList[0] + "_" + key_b.GetName()
+#            print(FileNameList[0])
+#            print(tree.GetName())
             ijk = 0
             for j in range(len(histo_xrange[tree.GetName()])):
                 if key_b.GetName() in histo_xrange[tree.GetName()].keys()[j]:
@@ -251,15 +253,15 @@ def CONVERT_WORKING(filename, outputpath = "." ):
         Name_Output_File = Name_Output_File.replace("//","/")
 #        print("!@#!@!@#!@ ",Name_Output_File)
     elif(outputpath[0] == "/"):
-        Name_Output_File = outputpath + "/" + ".root"
+        Name_Output_File = outputpath + "/"+ FileNameList[0] + "_hist.root"
         Name_Output_File = Name_Output_File.replace("//","/")
 #        print("!@#!@!@#!@ ",Name_Output_File)
     elif(outputpath[0] == "~"):
-        Name_Output_File = outputpath.replace("~",os.environ['HOME']) + ".root"
+        Name_Output_File = outputpath.replace("~",os.environ['HOME']) +FileNameList[0]+ "_hist.root"
         Name_Output_File = Name_Output_File.replace("//","/")
 #        print("!@#!@!@#!@ ",Name_Output_File)
     else:
-        Name_Output_File = os.getcwd() + "/" + outputpath+ ".root"
+        Name_Output_File = os.getcwd() + "/" + outputpath+ FileNameList[0]+"_hist.root"
         Name_Output_File = Name_Output_File.replace("//","/")
 #        print("!@#!@!@#!@ ",Name_Output_File)
 
