@@ -171,14 +171,14 @@ def Fill_histograms(FILENAME,BRANCHLISTALL,DICHISTLIST):
 
 ################################## main code #########################
 
-def main():
+def CONVERT_WORKING(filename):
 
 #    INPUT_FILE_INCLUDING_PATH = "../../../root_generator/tree/root2_tree.root"
-    INPUT_FILE_INCLUDING_PATH = "root2_tree_cut_tree.root"     #FIXME #FIXME #FIXME  #FIXME #FIXME #FIXME #FIXME 
+#    INPUT_FILE_INCLUDING_PATH = "root2_tree_cut_tree.root"     #FIXME #FIXME #FIXME  #FIXME #FIXME #FIXME #FIXME 
 
 
 
-    FileNameList = read_file_name(INPUT_FILE_INCLUDING_PATH)
+    FileNameList = read_file_name(filename)
     BranchListAll = get_branch_list_all(FileNameList[2])
     BranchListEachTree = get_branch_list_each_tree(FileNameList[2])
     histo_xrange = set_histo_xrange(FileNameList[2], BranchListAll)
@@ -256,6 +256,9 @@ def main():
 
     print("NBins =", NBins)
 #############################################################################
+
+def main():
+    CONVERT_WORKING("root2_tree_cut_tree.root")
 
 
 if __name__=="__main__":

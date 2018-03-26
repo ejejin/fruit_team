@@ -119,10 +119,11 @@ def WhetherAddCut(BRANCHLISTEACHTREE):
 
 
 
-def REGENERATE_TREE_WITH_CUT(filename):
+def main():
 
+    INPUT_FILE_INCLUDING_PATH = "../../../root_generator/tree/root2_tree.root"
   
-    FileNameList = read_file_name(filename)
+    FileNameList = read_file_name(INPUT_FILE_INCLUDING_PATH)
     BranchListAll = get_branch_list_all(FileNameList[2])
     BranchListEachTree = get_branch_list_each_tree(FileNameList[2])
 
@@ -216,9 +217,6 @@ def REGENERATE_TREE_WITH_CUT(filename):
         gBenchmark.Show("Regerating tree root") 
         print("*********************************************************************************************")
 
-
-def main():
-    REGENERATE_TREE_WITH_CUT("../../../root_generator/tree/root2_tree.root")
 
 
 if __name__=="__main__":
