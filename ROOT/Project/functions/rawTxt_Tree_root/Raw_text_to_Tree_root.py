@@ -70,12 +70,13 @@ def Raw_text_to_Tree_root(filename, outputpath = "."):
     tree.Write()
     outFile.Close()
     f.close()
-    return filename
+    print(outfileName)
+    return outfileName
 
 
 def main():
     Infile = "/Users/leejunho/Desktop/git/python3Env/group_study/fruit_team/ROOT/Project/tranfer_test/data/concrete.txt"
-    Raw_text_to_Tree_root(Infile,"..")
+    Raw_text_to_Tree_root(Infile,".")
 
 
 if __name__ == "__main__":
