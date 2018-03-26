@@ -2,12 +2,14 @@
 #input/output txt format :: Nth_bin Start_of_bin End_of_bin Entry
 #filename :: D1H_rootHist_TXT_conversion.py  
 
-def D1H_roothist_to_txt(filename, outputpath = '.'):
+def D1H_roothist_to_txt(filename, outputpath = ''):
     from ROOT import TFile, TCanvas, TPad
     import os
 
     if(filename[0]=="/"):
         filename = filename
+    elif(filename[0] == '~'):
+        filename = filename.replace("~",os.environ['HOME'])
     else:    
         filename = os.getcwd() + "/" + filename   # get the path included filename
     loca=len(filename)
@@ -17,6 +19,8 @@ def D1H_roothist_to_txt(filename, outputpath = '.'):
             break
     
     FILENAME = filename.replace(filename[:-loca],"")   # this is the shorten filename, excluded path 
+    FILE = FILENAME.replace(".root","")
+    filename_NoRoot = filename.replace(filename[len(filename)-loca:len(filename)],"")
 #    print(FILENAME, "******")   
 
     filetxt = filename.replace(".root","")
@@ -55,6 +59,7 @@ def D1H_roothist_to_txt(filename, outputpath = '.'):
         Nbin = hist.GetNbinsX()
 #        Filetxt = filetxt +"_"+ LIST[ijk] + "_F.txt"
         Filetxt =  LIST[ijk] + "_hist.txt"
+#        print("!@#!!#R@#@", LIST[ijk])
         wf= open(Filetxt,"w+")
         OutputList.append(Filetxt)
         print(Filetxt, "is generated")
