@@ -5,7 +5,7 @@ import os
 import numpy
 import collections
 
-def read_file_name(filename):             # returning [filename, filename.root, absolute path filename]
+def read_file_name(filename):             # returning [filename, filename.root, absolute path filename, absolute path filename without root file]
     f = TFile(filename,"READ")
 
     if(filename[0] == '/'):                 # 'filename' of absoulte location 
@@ -21,9 +21,10 @@ def read_file_name(filename):             # returning [filename, filename.root, 
             loca = i-1
             break
     FILENAME = filename.replace(filename[:-loca],"")
-    FILE = FILENAME.replace(".root","")
+    FILE = FILENAME.replace(".root","")    #filetxt
+    filename_NoRoot = filename.replace(filename[len(filename)-loca:len(filename)],"")
 
-    filelist = [FILE, FILENAME, filename]
+    filelist = [FILE, FILENAME, filename, filename_NoRoot]
     return(filelist)
 
 
@@ -119,7 +120,7 @@ def WhetherAddCut(BRANCHLISTEACHTREE):
 
 
 
-def REGENERATE_TREE_WITH_CUT(filename):
+def REGENERATE_TREE_WITH_CUT(filename, outputpath = '.'):
 
   
     FileNameList = read_file_name(filename)
@@ -167,8 +168,28 @@ def REGENERATE_TREE_WITH_CUT(filename):
         dirlist = f.GetListOfKeys(); 
         ITER = dirlist.MakeIterator()
         key = ITER.Next()
-        outfileName = FileNameList[0] + "_cut_tree.root"
+
+
+
+        if(outputpath == ''):
+            outfileName = FileNameList[3] + "/" + FileNameList[0] + "_cut_tree.root"
+            outfileName = outfileName.replace("//","/")
+#            print("!@#!@!@#!@ ",outfileName)
+        elif(outputpath[0] == "/"):
+            outfileName = outputpath + "/" + FileNameList[0] + "_cut_tree.root"
+            outfileName = outfileName.replace("//","/")
+#            print("!@#!@!@#!@ ",outfileName)
+        elif(outputpath[0] == "~"):
+            outfileName = outputpath.replace("~",os.environ['HOME']) + "/" + FileNameList[0] + "_cut_tree.root"
+            outfileName = outfileName.replace("//","/")
+#            print("!@#!@!@#!@ ",outfileName)
+        else:
+            outfileName = os.getcwd() + "/" + outputpath+ "/" + FileNameList[0] + "_cut_tree.root"
+            outfileName = outfileName.replace("//","/")
+#            print("!@#!@!@#!@ ",outfileName)
+
         outfile = TFile(outfileName,"RECREATE")
+
         ijk = 0
         while key:
             tree = key.ReadObj()
@@ -215,6 +236,9 @@ def REGENERATE_TREE_WITH_CUT(filename):
         print("*********************************************************************************************")
         gBenchmark.Show("Regerating tree root") 
         print("*********************************************************************************************")
+
+        return outfileName
+
 
 
 def main():

@@ -4,7 +4,7 @@ import os
 import numpy
 #from n6_Fill_histograms import Fill_histograms
 
-def read_file_name(filename):             # returning [filename, filename.root, absolute path filename]
+def read_file_name(filename):             # returning [filename, filename.root, absolute path filename, absolute path filename without root file]
     f = TFile(filename,"READ")
 
     if(filename[0] == '/'):                 # 'filename' of absoulte location 
@@ -21,8 +21,9 @@ def read_file_name(filename):             # returning [filename, filename.root, 
             break
     FILENAME = filename.replace(filename[:-loca],"")
     FILE = FILENAME.replace(".root","")
+    filename_NoRoot = filename.replace(filename[len(filename)-loca:len(filename)],"")
 
-    filelist = [FILE, FILENAME, filename]
+    filelist = [FILE, FILENAME, filename, filename_NoRoot]
     return(filelist)
 
 
@@ -171,11 +172,7 @@ def Fill_histograms(FILENAME,BRANCHLISTALL,DICHISTLIST):
 
 ################################## main code #########################
 
-def CONVERT_WORKING(filename):
-
-#    INPUT_FILE_INCLUDING_PATH = "../../../root_generator/tree/root2_tree.root"
-#    INPUT_FILE_INCLUDING_PATH = "root2_tree_cut_tree.root"     #FIXME #FIXME #FIXME  #FIXME #FIXME #FIXME #FIXME 
-
+def CONVERT_WORKING(filename, outputpath = "." ):
 
 
     FileNameList = read_file_name(filename)
@@ -194,7 +191,7 @@ def CONVERT_WORKING(filename):
             IJK = IJK +1 
 #    print(IJK)
 
-    NBins = []
+    NBins = []                      ### here you can enter the bin numbers of each!!!!!
     for ii in range(IJK):
         NBins.append(100)
 
@@ -237,8 +234,28 @@ def CONVERT_WORKING(filename):
     dicHistList =  Fill_histograms(FileNameList[2], BranchListAll, DichistList)
 #    print(dicHistList)
 
-    Name_Output_File = FileNameList[0] + "_hist.root"
+
+    if(outputpath == ''):
+        Name_Output_File = FileNameList[3] + "/" + FileNameList[0] + "_hist.root"
+        Name_Output_File = Name_Output_File.replace("//","/")
+#        print("!@#!@!@#!@ ",Name_Output_File)
+    elif(outputpath[0] == "/"):
+        Name_Output_File = outputpath + "/" + FileNameList[0] + "_hist.root"
+        Name_Output_File = Name_Output_File.replace("//","/")
+#        print("!@#!@!@#!@ ",Name_Output_File)
+    elif(outputpath[0] == "~"):
+        Name_Output_File = outputpath.replace("~",os.environ['HOME']) + "/" + FileNameList[0] + "_hist.root"
+        Name_Output_File = Name_Output_File.replace("//","/")
+#        print("!@#!@!@#!@ ",Name_Output_File)
+    else:
+        Name_Output_File = os.getcwd() + "/" + outputpath+ "/" + FileNameList[0] + "_hist.root"
+        Name_Output_File = Name_Output_File.replace("//","/")
+        print("!@#!@!@#!@ ",Name_Output_File)
+
+#    Name_Output_File = FileNameList[0] + "_hist.root"
     outfile = TFile(Name_Output_File,"RECREATE")
+
+
     for i in range(len(dicHistList)):
         for j in range(len(dicHistList.values()[i])):
             dicHistList.values()[i][j].Write()
@@ -255,6 +272,11 @@ def CONVERT_WORKING(filename):
     print("*********************************************************************************************")
 
     print("NBins =", NBins)
+    print("\n")
+
+    return Name_Output_File
+
+
 #############################################################################
 
 def main():
