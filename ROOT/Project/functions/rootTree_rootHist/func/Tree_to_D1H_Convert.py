@@ -100,8 +100,12 @@ def set_histo_xrange(FILENAME,BRANCHLISTALL):
     ITER = dirlist.MakeIterator()
     key = ITER.Next()
 
-    lowEdge = [0,0,0]
-    highEdge = [0,0,0]
+    lowEdge = []
+    highEdge = []
+    for i in range(len(DicNumpyArray_branch)):
+        lowEdge.append(0)
+        highEdge.append(0)
+
     while key:
         tree = key.ReadObj()
         for i in range(len(DicNumpyArray_branch)):
@@ -109,6 +113,7 @@ def set_histo_xrange(FILENAME,BRANCHLISTALL):
 
         tree_xrange = {}
         ENTRY = tree.GetEntries()
+#        print("@EEF#$#G!#", len(DicNumpyArray_branch))
         for i in range(ENTRY):                                            #### HISTO RANGE SETTING !!!!
             tree.GetEntry(i)                                              #FIXME #FIXME #FIXME #FIXME #FIXME #FIXME #FIXME below 
             for j in range(len(DicNumpyArray_branch)):                    #### "j" corresponse to branch for one tree on one loop
