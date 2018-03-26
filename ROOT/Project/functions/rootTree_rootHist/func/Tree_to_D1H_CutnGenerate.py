@@ -133,14 +133,14 @@ def REGENERATE_TREE_WITH_CUT(filename, outputpath = '.'):
         a = numpy.array([0],'d')
         DicNumpyArray_branch[numpyarray] = a
     DicNumpyArray_branch = collections.OrderedDict(sorted(DicNumpyArray_branch.items()))    #  !!!the input times are ordered!!!
-    print(DicNumpyArray_branch)
+#    print(DicNumpyArray_branch)
 
     DicNumpyArray_branch_w = {}
     for numpyarray_w in BranchListAll:
         a_w = numpy.array([0],'d')
         DicNumpyArray_branch_w[numpyarray_w] = a_w
     DicNumpyArray_branch_w = collections.OrderedDict(sorted(DicNumpyArray_branch_w.items()))
-    print(DicNumpyArray_branch_w)
+#    print(DicNumpyArray_branch_w)
 
 
     WCuts = WhetherAddCut(BranchListEachTree)
@@ -206,7 +206,7 @@ def REGENERATE_TREE_WITH_CUT(filename, outputpath = '.'):
                 for k in range(len(DicNumpyArray_branch)):
                     DicNumpyArray_branch_w.values()[k][0] = DicNumpyArray_branch.values()[k][0]
                 if(                                                    #FIXME#FIXME#FIXME#FIXME#FIXME#FIXME#FIXME#FIXME#FIXME#FIXME
-                    (DicNumpyArray_branch.values()[0][0] < 0.5)          # [i][0]  means "i"th branch of the tree, [0] don't change   #FIXME#FIXME#FIXME#FIXME
+                    (DicNumpyArray_branch.values()[0][0] < 0.5)          # [i][0]  means "i"th branch of each tree, [0] don't change   #FIXME#FIXME#FIXME#FIXME
                     & (DicNumpyArray_branch.values()[1][0] < 0.5)        #FIXME#FIXME#FIXME#FIXME#FIXME#FIXME#FIXME#FIXME#FIXME#FIXME#FIXME
                   ):
                     ijk = ijk + 1

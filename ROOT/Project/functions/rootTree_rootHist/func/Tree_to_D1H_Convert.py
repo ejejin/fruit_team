@@ -2,6 +2,7 @@
 from ROOT import TFile, TH1D, TH1F, TCanvas, TColor, TGaxis, TPad, gBenchmark
 import os
 import numpy
+import collections
 #from n6_Fill_histograms import Fill_histograms
 
 def read_file_name(filename):             # returning [filename, filename.root, absolute path filename, absolute path filename without root file]
@@ -90,6 +91,7 @@ def set_histo_xrange(FILENAME,BRANCHLISTALL):
     for numpyarray in BRANCHLISTALL:
         a = numpy.array([0],'d')
         DicNumpyArray_branch[numpyarray] = a
+    DicNumpyArray_branch = collections.OrderedDict(sorted(DicNumpyArray_branch.items()))    #  !!!the input times are ordered!!!
 #    print(DicNumpyArray_branch)
 
     histo_xrange = {}
@@ -107,13 +109,13 @@ def set_histo_xrange(FILENAME,BRANCHLISTALL):
 
         tree_xrange = {}
         ENTRY = tree.GetEntries()
-        for i in range(ENTRY):
-            tree.GetEntry(i)
-            for j in range(len(DicNumpyArray_branch)):
-                if(i==0):
-                    lowEdge[j] = DicNumpyArray_branch.values()[j][0]
-                    highEdge[j] = DicNumpyArray_branch.values()[j][0]
-                else:
+        for i in range(ENTRY):                                            #### HISTO RANGE SETTING !!!!
+            tree.GetEntry(i)                                              #FIXME #FIXME #FIXME #FIXME #FIXME #FIXME #FIXME below 
+            for j in range(len(DicNumpyArray_branch)):                    #### "j" corresponse to branch for one tree on one loop
+                if(i==0):                                                 #### And they are in correct order !!!
+                    lowEdge[j] = DicNumpyArray_branch.values()[j][0]        ####### you can set the low & high edge manually #FIXME
+                    highEdge[j] = DicNumpyArray_branch.values()[j][0]      #### e.g.  "lowEdge[j] = -10", "highEdge[j] = 10"
+                else:                                                       ####### and comment all if, else 
                     if(DicNumpyArray_branch.values()[j][0] < lowEdge[j]):
                         lowEdge[j] = DicNumpyArray_branch.values()[j][0]
                     if(DicNumpyArray_branch.values()[j][0] > highEdge[j]):
@@ -141,6 +143,9 @@ def Fill_histograms(FILENAME,BRANCHLISTALL,DICHISTLIST):
     for numpyarray in BRANCHLISTALL:
         a = numpy.array([0],'d')
         DicNumpyArray_branch[numpyarray] = a
+    DicNumpyArray_branch = collections.OrderedDict(sorted(DicNumpyArray_branch.items()))    #  !!!the input times are ordered!!!
+#    print(DicNumpyArray_branch)
+
 
     f = TFile(FILENAME,"READ")
     dirlist = f.GetListOfKeys()
@@ -250,7 +255,7 @@ def CONVERT_WORKING(filename, outputpath = "." ):
     else:
         Name_Output_File = os.getcwd() + "/" + outputpath+ "/" + FileNameList[0] + "_hist.root"
         Name_Output_File = Name_Output_File.replace("//","/")
-        print("!@#!@!@#!@ ",Name_Output_File)
+#        print("!@#!@!@#!@ ",Name_Output_File)
 
 #    Name_Output_File = FileNameList[0] + "_hist.root"
     outfile = TFile(Name_Output_File,"RECREATE")
