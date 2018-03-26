@@ -172,19 +172,19 @@ def REGENERATE_TREE_WITH_CUT(filename, outputpath = '.'):
 
 
         if(outputpath == ''):
-            outfileName = FileNameList[3] + "/" + FileNameList[0] + "_cut_tree.root"
+            outfileName = FileNameList[3] + "/" + FileNameList[0] + "_cut.root"
             outfileName = outfileName.replace("//","/")
 #            print("!@#!@!@#!@ ",outfileName)
         elif(outputpath[0] == "/"):
-            outfileName = outputpath + "/" + FileNameList[0] + "_cut_tree.root"
+            outfileName = outputpath + "/" + FileNameList[0] + "_cut.root"
             outfileName = outfileName.replace("//","/")
 #            print("!@#!@!@#!@ ",outfileName)
         elif(outputpath[0] == "~"):
-            outfileName = outputpath.replace("~",os.environ['HOME']) + "/" + FileNameList[0] + "_cut_tree.root"
+            outfileName = outputpath.replace("~",os.environ['HOME']) + "/" + FileNameList[0] + "_cut.root"
             outfileName = outfileName.replace("//","/")
 #            print("!@#!@!@#!@ ",outfileName)
         else:
-            outfileName = os.getcwd() + "/" + outputpath+ "/" + FileNameList[0] + "_cut_tree.root"
+            outfileName = os.getcwd() + "/" + outputpath+ "/" + FileNameList[0] + "_cut.root"
             outfileName = outfileName.replace("//","/")
 #            print("!@#!@!@#!@ ",outfileName)
 
@@ -206,8 +206,8 @@ def REGENERATE_TREE_WITH_CUT(filename, outputpath = '.'):
                 for k in range(len(DicNumpyArray_branch)):
                     DicNumpyArray_branch_w.values()[k][0] = DicNumpyArray_branch.values()[k][0]
                 if(                                                    #FIXME#FIXME#FIXME#FIXME#FIXME#FIXME#FIXME#FIXME#FIXME#FIXME
-                    (DicNumpyArray_branch.values()[0][0] < 0.5)          # [i][0]  means "i"th branch of each tree, [0] don't change   #FIXME#FIXME#FIXME#FIXME
-                    & (DicNumpyArray_branch.values()[1][0] < 0.5)        #FIXME#FIXME#FIXME#FIXME#FIXME#FIXME#FIXME#FIXME#FIXME#FIXME#FIXME
+                    (DicNumpyArray_branch.values()[0][0] > 0.5)          # [i][0]  means "i"th branch of each tree, [0] don't change   #FIXME#FIXME#FIXME#FIXME
+                    & (DicNumpyArray_branch.values()[1][0] > 0.5)        #FIXME#FIXME#FIXME#FIXME#FIXME#FIXME#FIXME#FIXME#FIXME#FIXME#FIXME
                   ):
                     ijk = ijk + 1
                     tree_f.Fill()

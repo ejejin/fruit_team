@@ -25,6 +25,7 @@ def read_file_name(filename):             # returning [filename, filename.root, 
     filename_NoRoot = filename.replace(filename[len(filename)-loca:len(filename)],"")
 
     filelist = [FILE, FILENAME, filename, filename_NoRoot]
+    print(filelist)
     return(filelist)
 
 
@@ -244,21 +245,21 @@ def CONVERT_WORKING(filename, outputpath = "." ):
     dicHistList =  Fill_histograms(FileNameList[2], BranchListAll, DichistList)
 #    print(dicHistList)
 
-
+    print(outputpath)
     if(outputpath == ''):
         Name_Output_File = FileNameList[3] + "/" + FileNameList[0] + "_hist.root"
         Name_Output_File = Name_Output_File.replace("//","/")
 #        print("!@#!@!@#!@ ",Name_Output_File)
     elif(outputpath[0] == "/"):
-        Name_Output_File = outputpath + "/" + FileNameList[0] + "_hist.root"
+        Name_Output_File = outputpath + "/" + ".root"
         Name_Output_File = Name_Output_File.replace("//","/")
 #        print("!@#!@!@#!@ ",Name_Output_File)
     elif(outputpath[0] == "~"):
-        Name_Output_File = outputpath.replace("~",os.environ['HOME']) + "/" + FileNameList[0] + "_hist.root"
+        Name_Output_File = outputpath.replace("~",os.environ['HOME']) + ".root"
         Name_Output_File = Name_Output_File.replace("//","/")
 #        print("!@#!@!@#!@ ",Name_Output_File)
     else:
-        Name_Output_File = os.getcwd() + "/" + outputpath+ "/" + FileNameList[0] + "_hist.root"
+        Name_Output_File = os.getcwd() + "/" + outputpath+ ".root"
         Name_Output_File = Name_Output_File.replace("//","/")
 #        print("!@#!@!@#!@ ",Name_Output_File)
 
