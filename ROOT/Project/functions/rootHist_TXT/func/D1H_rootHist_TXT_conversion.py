@@ -1,3 +1,4 @@
+#Author : Junho LEE
 #input/output txt format :: Nth_bin Start_of_bin End_of_bin Entry
 #filename :: D1H_rootHist_TXT_conversion.py  
 
@@ -18,7 +19,7 @@ def D1H_roothist_to_txt(filename, outputpath = ''):
     FILENAME = filename.replace(filename[:-loca],"")   # this is the shorten filename, excluded path 
 #    print(FILENAME, "******")   
 
-    filetxt = filename.replace(".root","_F.txt")
+    filetxt = filename.replace(".root","")
     filetxt = filetxt.replace("//","/")
     if(outputpath==''):
         pass
@@ -143,3 +144,15 @@ def D1H_txt_to_roothist(filename, outputpath=''):
     wf.Close()
     fileroot = fileroot.replace("//","/")
     return fileroot
+
+
+
+
+def main():
+    D1H_roothist_to_txt("/Users/leejunho/Desktop/git/python3Env/group_study/fruit_team/ROOT/Project/root_generator/root3_sin.root")
+
+
+if __name__=="__main__":
+    main()
+
+

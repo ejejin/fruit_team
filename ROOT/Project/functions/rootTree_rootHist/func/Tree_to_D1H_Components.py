@@ -1,3 +1,5 @@
+#Author : JUNHO LEE
+
 from ROOT import TFile, TH1D, TH1F, TCanvas, TColor, TGaxis, TPad
 import os
 import numpy
