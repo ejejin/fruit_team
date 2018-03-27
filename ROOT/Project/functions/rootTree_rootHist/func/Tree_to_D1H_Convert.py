@@ -152,7 +152,6 @@ def Fill_histograms(FILENAME,BRANCHLISTALL,DICHISTLIST):
     DicNumpyArray_branch = collections.OrderedDict(sorted(DicNumpyArray_branch.items()))    #  !!!the input times are ordered!!!
 #    print(DicNumpyArray_branch)
 
-
     f = TFile(FILENAME,"READ")
     dirlist = f.GetListOfKeys()
     ITER = dirlist.MakeIterator()
@@ -198,7 +197,6 @@ def CONVERT_WORKING(filename, outputpath = "" ):
     IJK = 0     # number of all element included in all tree.
     for i in range(len(BranchListEachTree.keys())):
         Tlist = (BranchListEachTree.keys())
-#        print(BranchListEachTree[Tlist[i]])
         for j in range(len(BranchListEachTree[Tlist[i]])):
             IJK = IJK +1 
 #    print(IJK)
@@ -226,13 +224,11 @@ def CONVERT_WORKING(filename, outputpath = "" ):
         ITER_b = branchlist.MakeIterator()
         key_b = ITER_b.Next()
         while key_b:
-#            Namehist = FileNameList[0] + "_" + tree.GetName() + "_" + key_b.GetName()
             Namehist = FileNameList[0] + "_"+ tree.GetName() + "_" + key_b.GetName()
-#            print(FileNameList[0])
-#            print(tree.GetName())
             ijk = 0
             for j in range(len(histo_xrange[tree.GetName()])):
-                if key_b.GetName() in histo_xrange[tree.GetName()].keys()[j]:
+#                if key_b.GetName() in histo_xrange[tree.GetName()].keys()[j]:    ##### This is initally problem causing line... Keep this line
+                if key_b.GetName() == histo_xrange[tree.GetName()].keys()[j]:    #### problem causing ### FIXME 
                      hist = TH1D(Namehist, Namehist, NBins[ijk], histo_xrange[tree.GetName()].values()[j][0], histo_xrange[tree.GetName()].values()[j][1])
                      histList.append(hist)
                      ijk = ijk + 1
@@ -243,16 +239,11 @@ def CONVERT_WORKING(filename, outputpath = "" ):
         DichistList[tree.GetName()] = histList
         key = ITER.Next()
 
-#    print (DichistList)
-
     dicHistList =  Fill_histograms(FileNameList[2], BranchListAll, DichistList)
-#    print(dicHistList)
 
-#    print(outputpath)
     if(outputpath == ''):
         Name_Output_File = FileNameList[3] + "/" + FileNameList[0] + "_hist.root"
         Name_Output_File = Name_Output_File.replace("//","/")
-#        print("!@#!@!@#!@ ",Name_Output_File)
     elif(outputpath[0] == "/"):
         Name_Output_File = outputpath + "/"+ FileNameList[0] + "_hist.root"
         Name_Output_File = Name_Output_File.replace("//","/")
