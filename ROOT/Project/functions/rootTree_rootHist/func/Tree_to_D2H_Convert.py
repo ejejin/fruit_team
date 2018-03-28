@@ -176,9 +176,9 @@ def Fill_histograms(FILENAME,BRANCHLISTALL,DICHISTLIST):
         ENTRY = tree.GetEntries()
         print("for tree", tree.GetName())
 #        print(len(DICHISTLIST[tree.GetName()]))
-        print(len(DicNumpyArray_branch))
+#        print(len(DicNumpyArray_branch))
 #        print(len(DICHISTLIST))
-        print(DICHISTLIST.keys()[0]); print(DICHISTLIST.values()[0][0].GetName())
+#        print(DICHISTLIST.keys()[0]); print(DICHISTLIST.values()[0][0].GetName())
 #        print(DICHISTLIST.values())
         for i in range(ENTRY):
             tree.GetEntry(i)
@@ -217,7 +217,7 @@ def Fill_histograms(FILENAME,BRANCHLISTALL,DICHISTLIST):
 
 def CONVERT_WORKING2D(filename, outputpath = "" ):
     FileNameList = read_file_name(filename)
-    print(FileNameList)
+#    print(FileNameList)
     BranchListAll = get_branch_list_all(FileNameList[2])
     BranchListEachTree = get_branch_list_each_tree(FileNameList[2])
     histo_xrange = set_histo_xrange(FileNameList[2], BranchListAll)
@@ -263,22 +263,22 @@ def CONVERT_WORKING2D(filename, outputpath = "" ):
     dicHistList = Fill_histograms(FileNameList[2], BranchListAll, DichistList)
 
     if(outputpath == ''):
-        Name_Output_File = FileNameList[3] + "/" + FileNameList[0] + "_2Dhist.root"
+        Name_Output_File = FileNameList[3] + "/" + FileNameList[0] + "_hist2D.root"
         Name_Output_File = Name_Output_File.replace("//","/")
     elif(outputpath[0] == "/"):
-        Name_Output_File = outputpath + "/"+ FileNameList[0] + "_2Dhist.root"
+        Name_Output_File = outputpath + "/"+ FileNameList[0] + "_hist2D.root"
         Name_Output_File = Name_Output_File.replace("//","/")
 #        print("!@#!@!@#!@ ",Name_Output_File)
     elif(outputpath[0] == "~"):
-        Name_Output_File = outputpath.replace("~",os.environ['HOME']) +FileNameList[0]+ "_2Dhist.root"
+        Name_Output_File = outputpath.replace("~",os.environ['HOME']) +FileNameList[0]+ "_hist2D.root"
         Name_Output_File = Name_Output_File.replace("//","/")
 #        print("!@#!@!@#!@ ",Name_Output_File)
     else:
-        Name_Output_File = os.getcwd() + "/" + outputpath+ FileNameList[0]+"_2Dhist.root"
+        Name_Output_File = os.getcwd() + "/" + outputpath+ FileNameList[0]+"_hist2D.root"
         Name_Output_File = Name_Output_File.replace("//","/")
 #        print("!@#!@!@#!@ ",Name_Output_File)
 
-#    Name_Output_File = FileNameList[0] + "_2Dhist.root"
+#    Name_Output_File = FileNameList[0] + "_hist2D.root"
     outfile = TFile(Name_Output_File,"RECREATE")
 
     for i in range(len(dicHistList)):
@@ -304,10 +304,10 @@ def CONVERT_WORKING2D(filename, outputpath = "" ):
 def main():
     filename = "/Users/leejunho/Desktop/git/python3Env/group_study/fruit_team/ROOT/Project/functions/rootTree_rootHist/func/root2_tree_cut_tree.root"
     FileNameList = read_file_name(filename)
-    BranchListAll = get_branch_list_all(FileNameList[2]) ; #print(BranchListAll)
+#    BranchListAll = get_branch_list_all(FileNameList[2]) ; #print(BranchListAll)
     
-    BranchListEachTree = get_branch_list_each_tree(FileNameList[2]); #print(BranchListEachTree) 
-    histo_xrange = set_histo_xrange(FileNameList[2], BranchListAll); #print(histo_xrange)
+#    BranchListEachTree = get_branch_list_each_tree(FileNameList[2]); #print(BranchListEachTree) 
+#    histo_xrange = set_histo_xrange(FileNameList[2], BranchListAll); #print(histo_xrange)
     print(CONVERT_WORKING2D(FileNameList[2],""))
 
 
