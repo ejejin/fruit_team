@@ -308,7 +308,7 @@ def main():
     
     BranchListEachTree = get_branch_list_each_tree(FileNameList[2]); #print(BranchListEachTree) 
     histo_xrange = set_histo_xrange(FileNameList[2], BranchListAll); #print(histo_xrange)
-    print(CONVERT_WORKING2D(FileNameList[2],"."))
+    print(CONVERT_WORKING2D(FileNameList[2],""))
 
 
 if __name__=="__main__":
