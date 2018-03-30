@@ -207,7 +207,7 @@ def CONVERT_WORKING(filename, outputpath = "" ):
 
 #    print("NBins =", NBins)
 #    NBins = [,,,,,]      #FIXME #FIXME #FIXME #FIXME #FIXME #FIXME #FIXME #FIXME #FIXME #FIXME #FIXME #FIXME #FIXME #FIXME 
-
+    NBins = [8,8,10,10,10]  #!!!!!for soomin
 
     f = TFile(FileNameList[2],"READ")
     dirlist = f.GetListOfKeys()

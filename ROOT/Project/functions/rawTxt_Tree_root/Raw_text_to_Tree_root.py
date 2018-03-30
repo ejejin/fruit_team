@@ -86,7 +86,8 @@ def Raw_text_to_Tree_root(filename, outputpath = "."):
 
 
 def main():
-    Infile = "/Users/leejunho/Desktop/git/python3Env/group_study/fruit_team/ROOT/Project/tranfer_test/data/concrete.txt"
+#    Infile = "/Users/leejunho/Desktop/git/python3Env/group_study/fruit_team/ROOT/Project/tranfer_test/data/concrete.txt"
+    Infile = "/Users/leejunho/Desktop/git/python3Env/group_study/project_pre/data_txt/BINANCE_DATA.txt"
     Raw_text_to_Tree_root(Infile,".")
 
 

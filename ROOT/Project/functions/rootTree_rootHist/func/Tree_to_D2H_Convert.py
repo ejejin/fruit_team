@@ -182,7 +182,7 @@ def Fill_histograms(FILENAME,BRANCHLISTALL,DICHISTLIST):
 #        print(DICHISTLIST.values())
         for i in range(ENTRY):
             tree.GetEntry(i)
-            if(i%5000 == 0):
+            if(i%1000 == 0):
                 print("now looping", i, "th Events, total of ", ENTRY, "events")
             for j in range(len(DICHISTLIST)):
                 if(tree.GetName() == DICHISTLIST.keys()[j]):
@@ -216,6 +216,10 @@ def Fill_histograms(FILENAME,BRANCHLISTALL,DICHISTLIST):
 
 
 def CONVERT_WORKING2D(filename, outputpath = "" ):
+
+    print("*********************************************************************************************")
+    print("            This is 2D histo filling process          ")
+    print("*********************************************************************************************")
     FileNameList = read_file_name(filename)
 #    print(FileNameList)
     BranchListAll = get_branch_list_all(FileNameList[2])
@@ -246,7 +250,10 @@ def CONVERT_WORKING2D(filename, outputpath = "" ):
                     Name2DHist = tree.GetName()+"_X_" + BranchName(key_b.GetName()) + "_Y_" + BranchName(key_bb.GetName())
 #                    print(Name2DHist)
 #                    print(type(histo_xrange[tree.GetName()][key_b.GetName()][0]))
-                    hist = TH2D(Name2DHist, Name2DHist, 50, histo_xrange[tree.GetName()][key_b.GetName()][0], histo_xrange[tree.GetName()][key_b.GetName()][1], 50, histo_xrange[tree.GetName()][key_bb.GetName()][0], histo_xrange[tree.GetName()][key_bb.GetName()][1])
+#                    hist = TH2D(Name2DHist, Name2DHist, 200, histo_xrange[tree.GetName()][key_b.GetName()][0], histo_xrange[tree.GetName()][key_b.GetName()][1], 200, histo_xrange[tree.GetName()][key_bb.GetName()][0], histo_xrange[tree.GetName()][key_bb.GetName()][1])
+#FIXME #FIXME #FIXME #FIXME #FIXME #FIXME #FIXME #FIXME #FIXME #FIXME #FIXME #FIXME  Set bin number !!!!!
+
+                    hist = TH2D(Name2DHist, Name2DHist, 10, histo_xrange[tree.GetName()][key_b.GetName()][0], histo_xrange[tree.GetName()][key_b.GetName()][1], 10, histo_xrange[tree.GetName()][key_bb.GetName()][0], histo_xrange[tree.GetName()][key_bb.GetName()][1])  ##for soomin
 
                     histList.append(hist)
                     indicator = indicator + 1

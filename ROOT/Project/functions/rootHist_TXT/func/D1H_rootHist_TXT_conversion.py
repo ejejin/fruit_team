@@ -72,6 +72,7 @@ def D1H_roothist_to_txt(filename, outputpath = ''):
             wf.write("%i %f %f %f\n" %(bin_num,bin_l,bin_h,binCont))
 
     f.Close()
+    wf.close()
 #    print(OutputList)
     return OutputList
 
