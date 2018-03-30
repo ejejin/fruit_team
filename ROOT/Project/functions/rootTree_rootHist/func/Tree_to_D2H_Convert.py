@@ -98,7 +98,7 @@ def get_branch_list_each_tree(PATH_included_root):
 
 
 
-def set_histo_xrange(FILENAME,BRANCHLISTALL):
+def set_histo_xrange(FILENAME,BRANCHLISTALL, BranchListEachTree):
     from ROOT import TFile
     import numpy
 
@@ -124,7 +124,11 @@ def set_histo_xrange(FILENAME,BRANCHLISTALL):
     while key:
         tree = key.ReadObj()
         for i in range(len(DicNumpyArray_branch)):
-            tree.SetBranchAddress(DicNumpyArray_branch.keys()[i], DicNumpyArray_branch.values()[i])
+            if(DicNumpyArray_branch.keys()[i] in BranchListEachTree[tree.GetName()]):
+                tree.SetBranchAddress(DicNumpyArray_branch.keys()[i],DicNumpyArray_branch.values()[i])
+            else:
+                continue
+#            tree.SetBranchAddress(DicNumpyArray_branch.keys()[i], DicNumpyArray_branch.values()[i])
 
         tree_xrange = {}
         ENTRY = tree.GetEntries()
@@ -132,6 +136,10 @@ def set_histo_xrange(FILENAME,BRANCHLISTALL):
         for i in range(ENTRY):                                            #### HISTO RANGE SETTING !!!!
             tree.GetEntry(i)                                              #FIXME #FIXME #FIXME #FIXME #FIXME #FIXME #FIXME below 
             for j in range(len(DicNumpyArray_branch)):                    #### "j" corresponse to branch for one tree on one loop
+                if(DicNumpyArray_branch.keys()[j] in BranchListEachTree[tree.GetName()]):
+                    pass
+                else:
+                    continue
                 if(i==0):                                                 #### And they are in correct order !!!
                     lowEdge[j] = DicNumpyArray_branch.values()[j][0]        ####### you can set the low & high edge manually #FIXME
                     highEdge[j] = DicNumpyArray_branch.values()[j][0]      #### e.g.  "lowEdge[j] = -10", "highEdge[j] = 10"
@@ -142,21 +150,30 @@ def set_histo_xrange(FILENAME,BRANCHLISTALL):
                         highEdge[j] = DicNumpyArray_branch.values()[j][0]
 #        print(highEdge)
         for k in range(len(DicNumpyArray_branch)):
+            if(DicNumpyArray_branch.keys()[k] in BranchListEachTree[tree.GetName()]):
+                pass
+            else:
+                continue
             lowEdge[k] = lowEdge[k] - (highEdge[k]-lowEdge[k])*0.05         ###### range setting  #FIXME
             highEdge[k] = highEdge[k] + (highEdge[k]-lowEdge[k])*0.05
         for l in range(len(DicNumpyArray_branch)):
+            if(DicNumpyArray_branch.keys()[l] in BranchListEachTree[tree.GetName()]):
+                pass
+            else:
+                continue
             tree_xrange[DicNumpyArray_branch.keys()[l]] = [lowEdge[l], highEdge[l]]
 
 #        print("\n")
         histo_xrange[tree.GetName()] = tree_xrange
         key = ITER.Next()
 
+    print("set_histo_xrange for 2D histos is done!")
 #    print(histo_xrange)
     return histo_xrange
 
 
 
-def Fill_histograms(FILENAME,BRANCHLISTALL,DICHISTLIST):
+def Fill_histograms(FILENAME,BRANCHLISTALL,DICHISTLIST,BranchListEachTree):
     gBenchmark.Start("Filling & Writing 2D Histograms")    
     DicNumpyArray_branch = {}
     for numpyarray in BRANCHLISTALL:
@@ -170,10 +187,20 @@ def Fill_histograms(FILENAME,BRANCHLISTALL,DICHISTLIST):
     ITER = dirlist.MakeIterator()
     key =  ITER.Next()
     while key:
+        it = 0
         tree = key.ReadObj()
         for i in range(len(DicNumpyArray_branch)):
+            if(DicNumpyArray_branch.keys()[i] in BranchListEachTree[tree.GetName()]):
+                it = it + 1
+                pass
+            else:
+                continue
             tree.SetBranchAddress(DicNumpyArray_branch.keys()[i], DicNumpyArray_branch.values()[i])
         ENTRY = tree.GetEntries()
+
+        if(it==0):
+            continue
+
         print("for tree", tree.GetName())
 #        print(len(DICHISTLIST[tree.GetName()]))
 #        print(len(DicNumpyArray_branch))
@@ -189,6 +216,10 @@ def Fill_histograms(FILENAME,BRANCHLISTALL,DICHISTLIST):
                     for k in range(len(DICHISTLIST.values()[j])):     # 6 rotation for histo
                         jun = 0
                         for jk in range(len(DicNumpyArray_branch)):   # 3 rotation for branch
+                            if(DicNumpyArray_branch.keys()[jk] in BranchListEachTree[tree.GetName()]):
+                                pass
+                            else:
+                                continue
                             if((DicNumpyArray_branch.keys()[jk] in DICHISTLIST.values()[j][k].GetName()) & (jun==0)):
                                 MOMEM1 = DicNumpyArray_branch.keys()[jk] ; JUN1 = jk
                                 jun = jun + 1
@@ -224,7 +255,7 @@ def CONVERT_WORKING2D(filename, outputpath = "" ):
 #    print(FileNameList)
     BranchListAll = get_branch_list_all(FileNameList[2])
     BranchListEachTree = get_branch_list_each_tree(FileNameList[2])
-    histo_xrange = set_histo_xrange(FileNameList[2], BranchListAll)
+    histo_xrange = set_histo_xrange(FileNameList[2], BranchListAll, BranchListEachTree)
 
     indicator = 0
     f = TFile(FileNameList[2],"READ")
@@ -267,7 +298,7 @@ def CONVERT_WORKING2D(filename, outputpath = "" ):
 ##    print(indicator)
 
 
-    dicHistList = Fill_histograms(FileNameList[2], BranchListAll, DichistList)
+    dicHistList = Fill_histograms(FileNameList[2], BranchListAll, DichistList, BranchListEachTree)
 
     if(outputpath == ''):
         Name_Output_File = FileNameList[3] + "/" + FileNameList[0] + "_hist2D.root"
