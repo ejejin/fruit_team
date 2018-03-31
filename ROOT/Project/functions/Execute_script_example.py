@@ -6,7 +6,8 @@ import sys
 sys.path.append("/Users/leejunho/Desktop/git/python3Env/group_study/fruit_team/ROOT/Project/functions/rootTree_rootHist/func")
 
 from Tree_to_D1H_Components import Tree_to_D1H_Components
-Infile = "/Users/leejunho/Desktop/git/python3Env/group_study/fruit_team/ROOT/Project/root_generator/tree/TestIn2_1.root"
+#Infile = "/Users/leejunho/Desktop/git/python3Env/group_study/fruit_team/ROOT/Project/root_generator/tree/TestIn2_1.root"
+Infile = "/Users/leejunho/Desktop/git/python3Env/group_study/fruit_team/ROOT/Project/root_generator/tree/root1_tree.root"
 Tree_to_D1H_Components(Infile)
 
 from Tree_to_D1H_CutnGenerate import REGENERATE_TREE_WITH_CUT
