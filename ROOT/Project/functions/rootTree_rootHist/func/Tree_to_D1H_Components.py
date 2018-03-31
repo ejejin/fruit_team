@@ -18,14 +18,31 @@ def Tree_to_D1H_Components(filename):
 #    print(BranchListEachTree.items()[1][1])
 #    print(BranchListEachTree.keys()[1])
 #    for i in range(len(BranchListEachTree)):     
-    BranchListEachTree = {BranchListEachTree.keys()[0]:sorted(BranchListEachTree.items()[0][1])}
-    print(BranchListEachTree)
 
-    for i in range(len(BranchListEachTree)):
+#    print(BranchListEachTree.keys()[0]); print(BranchListEachTree.items()[0][1])
+#    print(BranchListEachTree.keys()[1]); print(BranchListEachTree.items()[1][1])
+#    print(BranchListEachTree.keys()[2]); print(BranchListEachTree.items()[2][1])
+#    print(BranchListEachTree.keys()[3]); print(BranchListEachTree.items()[3][1])
+  
+#    BranchListEachTree = {BranchListEachTree.keys()[0]:sorted(BranchListEachTree.items()[0][1])}
+#    print(BranchListEachTree)
+#    print(BranchListEachTree.keys()[0])
+#    print(BranchListEachTree.items()[0][1])
+#    print(len(BranchListEachTree.keys()))
+
+    BranchListEachTree_SAVE = BranchListEachTree
+#    print(BranchListEachTree_SAVE)
+    for i in range(len(BranchListEachTree_SAVE.keys())):
+        BranchListEachTree = BranchListEachTree_SAVE
+        BranchListEachTree = {BranchListEachTree.keys()[i]:sorted(BranchListEachTree.items()[i][1])}
         print("compenets below :")
-        print("The Tree name is : ",BranchListEachTree.keys()[i])
-        for j in range(len(BranchListEachTree.values()[i])):
-            print(j, "      it contains : ",j, BranchListEachTree.values()[i][j])
+#        print("The Tree name is : ",BranchListEachTree.keys()[i])
+        print("The Tree name is : ",BranchListEachTree.keys())
+#        print(BranchListEachTree[BranchListEachTree_SAVE.keys()[i]]) 
+#        for j in range(len(BranchListEachTree.values())):
+        for j in range(len(BranchListEachTree[BranchListEachTree_SAVE.keys()[i]])):
+            print(j, "      it contains : ",j, BranchListEachTree[BranchListEachTree_SAVE.keys()[i]][j])
+#            print(j, "      it contains : ",j, BranchListEachTree.values()[i][j])
         print("")
 
 
