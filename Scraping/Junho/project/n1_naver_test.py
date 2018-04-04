@@ -44,7 +44,8 @@ def naver(duration=3,iteration=3):
                     loca = ij-1
                     break
             TIME = TIME.replace(TIME[len(TIME)-loca:len(TIME)],"")
-            fn = "naver_hot_"+TIME+"txt"
+            RUNTIME = duration * iteration / 3600;  RUNTIME = round(RUNTIME,3)
+            fn = "naver_hot_"+str(RUNTIME)+"H_"+TIME+"txt"
             wf = open(fn,"w+")
             j=0
         LIST = list()
@@ -55,7 +56,7 @@ def naver(duration=3,iteration=3):
 
 
         for ik in range(len(LIST)):
-            if(ik==len(LIST)):
+            if(ik==len(LIST)-1):
                 wf.write(str(LIST[ik])+"\n")
             else:
                 wf.write(str(LIST[ik]) + " ")
@@ -71,7 +72,7 @@ def naver(duration=3,iteration=3):
     return DIC
 
 def main():
-    dic = naver(3,3)
+    dic = naver(10,5)
 #    print(dic)
 
 if __name__=="__main__":
