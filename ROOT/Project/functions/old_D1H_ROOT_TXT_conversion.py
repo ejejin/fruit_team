@@ -27,7 +27,7 @@ def D1H_root_to_txt(filename, outputpath = ''):
         wf.write("%i %f %f %f\n" %(bin_num,bin_l,bin_h,binCont))
 
     f.Close()
-
+    return filetxt
 
 def D1H_txt_to_root(filename, outputpath=''):
     from ROOT import TFile, TCanvas, TPad, TH1D, TLatex, TStyle, gStyle, TText, gPad, TPaveText
@@ -71,3 +71,4 @@ def D1H_txt_to_root(filename, outputpath=''):
         print(fileroot, " root file is generated !!!")
     hist.Write()
     wf.Close()
+    return fileroot
