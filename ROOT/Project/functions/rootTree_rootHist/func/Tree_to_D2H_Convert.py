@@ -246,7 +246,7 @@ def Fill_histograms(FILENAME,BRANCHLISTALL,DICHISTLIST,BranchListEachTree):
 
 
 
-def CONVERT_WORKING2D(filename, outputpath = "" ):
+def CONVERT_WORKING2D(filename, outputpath = "" , NBins=100):
 
     print("*********************************************************************************************")
     print("            This is 2D histo filling process          ")
@@ -284,7 +284,7 @@ def CONVERT_WORKING2D(filename, outputpath = "" ):
 #                    hist = TH2D(Name2DHist, Name2DHist, 200, histo_xrange[tree.GetName()][key_b.GetName()][0], histo_xrange[tree.GetName()][key_b.GetName()][1], 200, histo_xrange[tree.GetName()][key_bb.GetName()][0], histo_xrange[tree.GetName()][key_bb.GetName()][1])
 #FIXME #FIXME #FIXME #FIXME #FIXME #FIXME #FIXME #FIXME #FIXME #FIXME #FIXME #FIXME  Set bin number !!!!!
 
-                    hist = TH2D(Name2DHist, Name2DHist, 10, histo_xrange[tree.GetName()][key_b.GetName()][0], histo_xrange[tree.GetName()][key_b.GetName()][1], 10, histo_xrange[tree.GetName()][key_bb.GetName()][0], histo_xrange[tree.GetName()][key_bb.GetName()][1])  ##for soomin
+                    hist = TH2D(Name2DHist, Name2DHist, NBins, histo_xrange[tree.GetName()][key_b.GetName()][0], histo_xrange[tree.GetName()][key_b.GetName()][1], NBins, histo_xrange[tree.GetName()][key_bb.GetName()][0], histo_xrange[tree.GetName()][key_bb.GetName()][1])  ##for soomin
 
                     histList.append(hist)
                     indicator = indicator + 1
