@@ -11,16 +11,18 @@ def naver(duration=3,time=3):
     DIC = dict()
     #html = "https://datalab.naver.com/keyword/realtimeList.naver?datetime=2018-04-04T18:20:00"
     html = "https://www.naver.com/"
-    HTML = urlopen(html)
-    bsObj = BeautifulSoup(HTML, "html.parser")
+#    HTML = urlopen(html)
+#    bsObj = BeautifulSoup(HTML, "html.parser")
     #print(bsObj)
 
-    TEST = bsObj.find("ul",{"class":"ah_l"}).findAll("span",{"class":"ah_k"})
+#    TEST = bsObj.find("ul",{"class":"ah_l"}).findAll("span",{"class":"ah_k"})
 
     i = 1
     while i:
+        HTML = urlopen(html)
+        bsObj = BeautifulSoup(HTML, "html.parser")
+        TEST = bsObj.find("ul",{"class":"ah_l"}).findAll("span",{"class":"ah_k"})
         print(str(i)+"th rotation!")
-        sleep(duration)
         TIME = (datetime.datetime.now())
         LIST = list()
         for test in TEST:
@@ -32,12 +34,13 @@ def naver(duration=3,time=3):
         if(i > time):
             break
         i =i + 1
+        sleep(duration)
 
 #    print(DIC)
     return DIC
 
 def main():
-    dic =naver(300,12)
+    dic =naver(30,12)
     print(dic)
 
 if __name__=="__main__":
