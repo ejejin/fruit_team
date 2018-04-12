@@ -25,6 +25,7 @@ def read_file_name(filename):             # returning [filename, filename.root, 
     filename_NoRoot = filename.replace(filename[len(filename)-loca:len(filename)],"")
 
     filelist = [FILE, FILENAME, filename, filename_NoRoot]
+    f.Close()
     return(filelist)
 
 
@@ -49,7 +50,7 @@ def get_branch_list_all(PATH_included_root):
             SetBranchNameList.add(key_b.GetName())
             key_b = ITER_b.Next()
         key = ITER.Next()
-
+    f.Close()
     return SetBranchNameList
 
 
@@ -78,7 +79,7 @@ def get_branch_list_each_tree(PATH_included_root):
             key_b = ITER_b.Next()
         DicTreeBranchNameList[tree.GetName()] = BranchNameList
         key = ITER.Next()
-
+    f.Close()
     return DicTreeBranchNameList
 
     
@@ -92,15 +93,15 @@ def BreakOrNot(BRANCHLISTEACHTREE):
 
 #    for i in range(len(BRANCHLISTEACHTREE)):
     BRANCHLISTEACHTREE = {BRANCHLISTEACHTREE.keys()[0]:sorted(BRANCHLISTEACHTREE.items()[0][1])}
-    print("compenets below :")
-    print("\n")
+#    print("compenets below :")
+#    print("\n")
 
-    for i in range(len(BRANCHLISTEACHTREE)):
-        print("compenets below :")
-        print("The Tree name is : ",BRANCHLISTEACHTREE.keys()[i])
-        for j in range(len(BRANCHLISTEACHTREE.values()[i])):
-            print(j, "      it contains : ",j, BRANCHLISTEACHTREE.values()[i][j])
-        print("\n")   
+#    for i in range(len(BRANCHLISTEACHTREE)):
+#        print("compenets below :")
+#        print("The Tree name is : ",BRANCHLISTEACHTREE.keys()[i])
+#        for j in range(len(BRANCHLISTEACHTREE.values()[i])):
+#            print(j, "      it contains : ",j, BRANCHLISTEACHTREE.values()[i][j])
+#        print("\n")   
  
     
     print("Have put reasonable CUT ?")
@@ -131,8 +132,8 @@ def REGENERATE_TREE_WITH_CUT(filename, outputpath = ''):
 #    print(FileNameList)
     BranchListAll = get_branch_list_all(FileNameList[2])
     BranchListEachTree = get_branch_list_each_tree(FileNameList[2])
-    print("@#!@#!@#",BranchListEachTree)
-    print("@#!@#!@#",BranchListAll)
+#    print("@#!@#!@#",BranchListEachTree)
+#    print("@#!@#!@#",BranchListAll)
 
     DicNumpyArray_branch = {}
     for numpyarray in BranchListAll:
@@ -148,8 +149,8 @@ def REGENERATE_TREE_WITH_CUT(filename, outputpath = ''):
     DicNumpyArray_branch_w = collections.OrderedDict(sorted(DicNumpyArray_branch_w.items()))
 #    print(DicNumpyArray_branch_w)
 
-    print(DicNumpyArray_branch.keys())
-    print(DicNumpyArray_branch.values())
+#    print(DicNumpyArray_branch.keys())
+#    print(DicNumpyArray_branch.values())
 
     WCuts = WhetherAddCut(BranchListEachTree)
     if(WCuts==None):
@@ -158,12 +159,12 @@ def REGENERATE_TREE_WITH_CUT(filename, outputpath = ''):
         print("!!!! Please check input CUT !!!!! ")
         print("     !!!! No Output File !!!!    ")
         print("\n")
-        for i in range(len(BranchListEachTree)):
-            print("compenets below :")
-            print("The Tree name is : ",BranchListEachTree.keys()[i])
-            for j in range(len(BranchListEachTree.values()[i])):
-                print("        it contains : ", BranchListEachTree.values()[i][j])
-            print("\n")
+#        for i in range(len(BranchListEachTree)):
+#            print("compenets below :")
+#            print("The Tree name is : ",BranchListEachTree.keys()[i])
+#            for j in range(len(BranchListEachTree.values()[i])):
+#                print("        it contains : ", BranchListEachTree.values()[i][j])
+#            print("\n")
         print("!!!! Please check input CUT !!!!! ")
         print("     !!!! No Output File !!!!    ")
         print("*********************************************************************************************")
@@ -204,7 +205,6 @@ def REGENERATE_TREE_WITH_CUT(filename, outputpath = ''):
             tree_f = TTree(tree.GetName()+"_f",tree.GetName()+"_f")
             ENTRY = tree.GetEntries();  #print(ENTRY)
             for i in range(len(DicNumpyArray_branch)):
-#            for i in range(len(BranchListEachTree[tree.GetName()])):
                 if(DicNumpyArray_branch.keys()[i] in BranchListEachTree[tree.GetName()]):
                     tree.SetBranchAddress(DicNumpyArray_branch.keys()[i],DicNumpyArray_branch.values()[i])  
                     tree_f.Branch(DicNumpyArray_branch_w.keys()[i],DicNumpyArray_branch_w.values()[i],DicNumpyArray_branch_w.keys()[i]+"/D")           
@@ -212,15 +212,26 @@ def REGENERATE_TREE_WITH_CUT(filename, outputpath = ''):
                     continue
  
             print("for tree", tree.GetName())
+#            tt = 0
             for j in range(ENTRY):
                 tree.GetEntry(j)
                 if(j%5000 == 0):
                     print("now looping", j, "th Events, total of ", ENTRY, "events")
                 for k in range(len(DicNumpyArray_branch)):
+                    if(DicNumpyArray_branch.keys()[k] in BranchListEachTree[tree.GetName()]):    ### FIXED MAYBE not correct....
+                        pass
+                    else:
+                        continue
                     DicNumpyArray_branch_w.values()[k][0] = DicNumpyArray_branch.values()[k][0]
+#                    if(j==0):
+#                        print(k,DicNumpyArray_branch_w.keys()[k])
+#                        print(DicNumpyArray_branch_w.keys()[k])
+                
+#                tt = raw_input("press 'Y' to proceed, 'enter' to quit!")  #FIXME#FIXME#FIXME#FIXME#FIXME#FIXME#FIXME#FIXME#FIXME#FIXME 
+    
                 if(   True                                            #FIXME#FIXME#FIXME#FIXME#FIXME#FIXME#FIXME#FIXME#FIXME#FIXME
 
-#                    (DicNumpyArray_branch.values()[0][0] > 0)          # [i][0]  means "i+1"th branch of each tree, [0] don't change   #FIXME#FIXME#FIXME#FIXME
+#                   & (DicNumpyArray_branch.values()[10][0] > 9)          # [i][0]  means "i+1"th branch of each tree, [0] don't change   #FIXME#FIXME#FIXME#FIXME
                    #&  (DicNumpyArray_branch.values()[1][0] > 0)        #FIXME#FIXME#FIXME#FIXME#FIXME#FIXME#FIXME#FIXME#FIXME#FIXME#FIXME
                   ):
                     ijk = ijk + 1

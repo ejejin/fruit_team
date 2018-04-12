@@ -26,6 +26,7 @@ def read_file_name(filename):             # returning [filename, filename.root, 
 
     filelist = [FILE, FILENAME, filename, filename_NoRoot]
 #    print(filelist)
+    f.Close()
     return(filelist)
 
 
@@ -50,7 +51,7 @@ def get_branch_list_all(PATH_included_root):
             SetBranchNameList.add(key_b.GetName())
             key_b = ITER_b.Next()
         key = ITER.Next()
-
+    f.Close()
     return SetBranchNameList
 
 
@@ -79,7 +80,7 @@ def get_branch_list_each_tree(PATH_included_root):
             key_b = ITER_b.Next()
         DicTreeBranchNameList[tree.GetName()] = BranchNameList
         key = ITER.Next()
-
+    f.Close()
     return DicTreeBranchNameList
 
 
@@ -115,8 +116,7 @@ def set_histo_xrange(FILENAME,BRANCHLISTALL,BranchListEachTree):
                 tree.SetBranchAddress(DicNumpyArray_branch.keys()[i],DicNumpyArray_branch.values()[i])
             else:
                 continue
-
-#            tree.SetBranchAddress(DicNumpyArray_branch.keys()[i], DicNumpyArray_branch.values()[i])
+            tree.SetBranchAddress(DicNumpyArray_branch.keys()[i], DicNumpyArray_branch.values()[i])
 
         tree_xrange = {}
         ENTRY = tree.GetEntries()
@@ -156,6 +156,7 @@ def set_histo_xrange(FILENAME,BRANCHLISTALL,BranchListEachTree):
         key = ITER.Next()
 
 #    print(histo_xrange)
+    f.Close()
     return histo_xrange
 
 
@@ -163,14 +164,14 @@ def set_histo_xrange(FILENAME,BRANCHLISTALL,BranchListEachTree):
 
 def Fill_histograms(FILENAME,BRANCHLISTALL,DICHISTLIST, BranchListEachTree):
     gBenchmark.Start("Filling & Writing Histograms")
-    print("!@#!@#!#",DICHISTLIST.keys())
-    print("!@#!@#!",BRANCHLISTALL)
+#    print("!@#!@#!#",DICHISTLIST.keys())
+#    print("!@#!@#!",BRANCHLISTALL)
     DicNumpyArray_branch = {}
     for numpyarray in BRANCHLISTALL:
         a = numpy.array([0],'d')
         DicNumpyArray_branch[numpyarray] = a
     DicNumpyArray_branch = collections.OrderedDict(sorted(DicNumpyArray_branch.items()))    #  !!!the input times are ordered!!!
-#    print(DicNumpyArray_branch)
+#    print("!@#!@#!#",DicNumpyArray_branch)
 
     f = TFile(FILENAME,"READ")
     dirlist = f.GetListOfKeys()
@@ -179,6 +180,7 @@ def Fill_histograms(FILENAME,BRANCHLISTALL,DICHISTLIST, BranchListEachTree):
     while key:
         it = 0
         tree = key.ReadObj()
+#        print("!@#!@#!#",DICHISTLIST[tree.GetName()])
         for i in range(len(DicNumpyArray_branch)):
             if(DicNumpyArray_branch.keys()[i] in BranchListEachTree[tree.GetName()]):
                 it = it + 1
@@ -194,7 +196,7 @@ def Fill_histograms(FILENAME,BRANCHLISTALL,DICHISTLIST, BranchListEachTree):
         print("for tree", tree.GetName())
         for i in range(ENTRY):
             tree.GetEntry(i)
-            if(i%5000 == 0):
+            if(i%1000 == 0):
                 print("now looping", i, "th Events, total of ", ENTRY, "events")
             
 #            for j in range(len(DICHISTLIST[tree.GetName()])):
@@ -205,9 +207,13 @@ def Fill_histograms(FILENAME,BRANCHLISTALL,DICHISTLIST, BranchListEachTree):
                     else:
                         continue
 
+#DICHISTLIST[tree.GetName()][k].Scale(DicNumpyArray_branch["JWeight"][j][0])
+
+
         key = ITER.Next()
 #    print(DICHISTLIST)
 #    gBenchmark.Show("filling")
+    f.Close()
     return DICHISTLIST
 
 
@@ -239,7 +245,7 @@ def CONVERT_WORKING(filename, outputpath = "" ):
 
 #    print("NBins =", NBins)
 #    NBins = [,,,,,]      #FIXME #FIXME #FIXME #FIXME #FIXME #FIXME #FIXME #FIXME #FIXME #FIXME #FIXME #FIXME #FIXME #FIXME 
-    NBins = [8,8,10,10,10]  #!!!!!for soomin
+#    NBins = [40,40,40,40,40]  #!!!!!for soomin
 
     f = TFile(FileNameList[2],"READ")
     dirlist = f.GetListOfKeys()
@@ -292,10 +298,10 @@ def CONVERT_WORKING(filename, outputpath = "" ):
 #    Name_Output_File = FileNameList[0] + "_hist.root"
     outfile = TFile(Name_Output_File,"RECREATE")
 
-
     for i in range(len(dicHistList)):
         for j in range(len(dicHistList.values()[i])):
             dicHistList.values()[i][j].Write()
+#            dicHistList.values()[i][j].Print()
     print("")
     print("////////////////////////////////////////////////")
     print("outputfile : ")
@@ -310,7 +316,7 @@ def CONVERT_WORKING(filename, outputpath = "" ):
 
     print("NBins =", NBins)
     print("\n")
-
+    f.Close()
     return Name_Output_File
 
 

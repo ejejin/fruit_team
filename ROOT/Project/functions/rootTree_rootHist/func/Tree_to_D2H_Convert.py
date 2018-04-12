@@ -246,7 +246,7 @@ def Fill_histograms(FILENAME,BRANCHLISTALL,DICHISTLIST,BranchListEachTree):
 
 
 
-def CONVERT_WORKING2D(filename, outputpath = "" , NBins=100):
+def CONVERT_WORKING2D(filename, outputpath = "" , NBins=200):
 
     print("*********************************************************************************************")
     print("            This is 2D histo filling process          ")
