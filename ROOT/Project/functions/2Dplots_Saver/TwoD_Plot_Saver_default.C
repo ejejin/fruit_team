@@ -19,5 +19,6 @@ void TwoD_Plot_Saver_default(string File)
     TwoD_histos = READ_2d->TwoD_HISTs(&infile);
     TwoD_histos_Name = READ_2d->TwoD_HISTs_Name(&infile);
     READ_2d->Draw_n_Save_Histos();
+    READ_2d->Draw_n_Save_Histos_colz(70,70);
 }
 

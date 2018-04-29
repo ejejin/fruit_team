@@ -6,18 +6,24 @@
 #include "TCanvas.h"
 
 using namespace std;
-void test_2D(string File)
-//void test_2D()
+//void test_2D(string File)
+void test_2D()
 {
-//    TFile *file = new TFile("/Users/leejunho/Desktop/git/python3Env/group_study/project_pre/data_txt/BEIJING_Aqi/Aqi_Beijing_day_re_tree_cut_hist2D.root","READ");
-    cout<<File<<endl;
-    TFile *file = new TFile(File.data(),"READ");
+    TFile *file = new TFile("/Users/leejunho/Desktop/git/python3Env/group_study/project_pre/data_txt/BEIJING_Aqi/Aqi_Beijing_day_re_tree_cut_hist2D.root","READ");
+//    cout<<File<<endl;
+//    TFile *file = new TFile(File.data(),"READ");
     TCanvas *can = new TCanvas();
     TH2D* tdhist = (TH2D*)file->Get("Aqi_Beijing_day_re_f_X_SO2_Y_PM2p5");
     tdhist->SetDirectory(0);
 //    tdhist->SetName("tdhist");
 //    tdhist->Print();
-    tdhist->Draw();
+    double ymin, ymax, xmin, xmax, xbin, ybin;
+    ymin = tdhist->GetYaxis()->GetXmin(); ymax=tdhist->GetYaxis()->GetXmax();
+    xmin = tdhist->GetXaxis()->GetXmin(); xmax=tdhist->GetXaxis()->GetXmax(); 
+    ybin = (ymax-ymin)/70;
+    xbin = (xmax-xmin)/70;
+    tdhist->Rebin2D(int(xbin),int(ybin));
+    tdhist->Draw("colz");
     can->SaveAs("test.pdf");
 
     file->Close();
