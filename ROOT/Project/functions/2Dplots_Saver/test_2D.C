@@ -23,7 +23,8 @@ void test_2D()
     ybin = (ymax-ymin)/70;
     xbin = (xmax-xmin)/70;
     tdhist->Rebin2D(int(xbin),int(ybin));
-    tdhist->Draw("colz");
+    tdhist->Draw("lego");   //surf3
+//    tdhist->Draw("surf3 same");
     can->SaveAs("test.pdf");
 
     file->Close();
