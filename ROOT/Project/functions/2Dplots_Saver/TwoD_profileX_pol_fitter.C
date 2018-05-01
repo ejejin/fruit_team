@@ -12,7 +12,9 @@ using namespace std;
 
 void TwoD_profileX_pol_fitter(string File)
 {
-    gStyle->SetOptFit(111);
+    gStyle->SetOptStat(0);
+//    gStyle->SetOptStat(1000000001);
+    gStyle->SetOptFit(1);
     string infile= File;
     vector<TH2D*> TwoD_histos;
     vector<string> TwoD_histos_Name;
@@ -31,13 +33,14 @@ void TwoD_profileX_pol_fitter(string File)
         {
             c1->cd(j+1);
             TProfile *prof = TwoD_histos.at(i)->ProfileX();
+            prof->SetMarkerStyle(7);
             prof->SetDirectory(0);
             if(j==0) prof->Fit("pol1");
             else if(j==1) prof->Fit("pol2");
             else if(j==2) prof->Fit("pol3");
             else if(j==3) prof->Fit("pol4");
             else if(j==4) prof->Fit("pol5");
-            else if(j==5) prof->Fit("expo");
+            else if(j==5) {/*prof->SetStats(1111);*/prof->Draw();}
 //            else if(j==3) TwoD_histos.at(i)->Draw();
             c1->Modified();
             c1->Update();
