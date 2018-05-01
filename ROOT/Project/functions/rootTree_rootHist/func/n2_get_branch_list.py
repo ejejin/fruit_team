@@ -22,6 +22,7 @@ def get_branch_list_all(PATH_included_root):
             key_b = ITER_b.Next()
         key = ITER.Next()
 
+    f.Close()
     return SetBranchNameList
 
 
@@ -51,6 +52,7 @@ def get_branch_list_each_tree(PATH_included_root):
         DicTreeBranchNameList[tree.GetName()] = BranchNameList
         key = ITER.Next()
 
+    f.Close()
     return DicTreeBranchNameList
 
 

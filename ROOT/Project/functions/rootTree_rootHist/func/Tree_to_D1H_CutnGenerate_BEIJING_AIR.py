@@ -231,8 +231,17 @@ def REGENERATE_TREE_WITH_CUT(filename, outputpath = ''):
     
                 if(   True                                            #FIXME#FIXME#FIXME#FIXME#FIXME#FIXME#FIXME#FIXME#FIXME#FIXME
 
-#                   & (DicNumpyArray_branch.values()[0][0] > 0)          # [i][0]  means "i+1"th branch of each tree, [0] don't change   #FIXME#FIXME#FIXME#FIXME
-                   #&  (DicNumpyArray_branch.values()[1][0] > 0)        #FIXME#FIXME#FIXME#FIXME#FIXME#FIXME#FIXME#FIXME#FIXME#FIXME#FIXME
+                   & (DicNumpyArray_branch.values()[0][0] > 0)
+#                   & (DicNumpyArray_branch.values()[5][0] > 20)  #        # [i][0]  means "i+1"th branch of each tree, [0] don't change   #FIXME#FIXME#FIXME#FIXME
+#                   &  (DicNumpyArray_branch.values()[5][0] < 90) #
+#                   &  (DicNumpyArray_branch.values()[1][0] > 0)  #CO      #FIXME#FIXME#FIXME#FIXME#FIXME#FIXME#FIXME#FIXME#FIXME#FIXME#FIXME
+#                   &  (DicNumpyArray_branch.values()[5][0] > 0)  #NO2
+#                   &  (DicNumpyArray_branch.values()[6][0] > 0)  #O3_8h
+#                   &  (DicNumpyArray_branch.values()[7][0] > 0)  #PM10
+#                   &  (DicNumpyArray_branch.values()[8][0] > 0)  #PM2p5
+#                   &  (DicNumpyArray_branch.values()[9][0] > 0)  #SO2
+
+#                   &  (DicNumpyArray_branch.values()[2][0] > 20170100) & (DicNumpyArray_branch.values()[2][0] < 20180100)
                   ):
                     ijk = ijk + 1
                     tree_f.Fill()

@@ -20,6 +20,7 @@ def read_file_name(filename):             # returning [filename, filename.root, 
     FILE = FILENAME.replace(".root","")
 
     filelist = [FILE, FILENAME, filename]
+    f.Close()
     return(filelist)
 
 

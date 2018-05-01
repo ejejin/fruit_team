@@ -26,7 +26,6 @@ def read_file_name(filename):             # returning [filename, filename.root, 
 
     filelist = [FILE, FILENAME, filename, filename_NoRoot]
 #    print(filelist)
-    f.Close()
     return(filelist)
 
 
@@ -51,7 +50,7 @@ def get_branch_list_all(PATH_included_root):
             SetBranchNameList.add(key_b.GetName())
             key_b = ITER_b.Next()
         key = ITER.Next()
-    f.Close()
+
     return SetBranchNameList
 
 
@@ -80,15 +79,14 @@ def get_branch_list_each_tree(PATH_included_root):
             key_b = ITER_b.Next()
         DicTreeBranchNameList[tree.GetName()] = BranchNameList
         key = ITER.Next()
-    f.Close()
+
     return DicTreeBranchNameList
 
 
 
-def set_histo_xrange(FILENAME,BRANCHLISTALL,BranchListEachTree):
+def set_histo_xrange(FILENAME,BRANCHLISTALL):
     from ROOT import TFile
     import numpy
-    
 
     DicNumpyArray_branch = {}
     for numpyarray in BRANCHLISTALL:
@@ -112,10 +110,6 @@ def set_histo_xrange(FILENAME,BRANCHLISTALL,BranchListEachTree):
     while key:
         tree = key.ReadObj()
         for i in range(len(DicNumpyArray_branch)):
-            if(DicNumpyArray_branch.keys()[i] in BranchListEachTree[tree.GetName()]):
-                tree.SetBranchAddress(DicNumpyArray_branch.keys()[i],DicNumpyArray_branch.values()[i])
-            else:
-                continue
             tree.SetBranchAddress(DicNumpyArray_branch.keys()[i], DicNumpyArray_branch.values()[i])
 
         tree_xrange = {}
@@ -124,10 +118,6 @@ def set_histo_xrange(FILENAME,BRANCHLISTALL,BranchListEachTree):
         for i in range(ENTRY):                                            #### HISTO RANGE SETTING !!!!
             tree.GetEntry(i)                                              #FIXME #FIXME #FIXME #FIXME #FIXME #FIXME #FIXME below 
             for j in range(len(DicNumpyArray_branch)):                    #### "j" corresponse to branch for one tree on one loop
-                if(DicNumpyArray_branch.keys()[j] in BranchListEachTree[tree.GetName()]):
-                    pass
-                else:
-                    continue
                 if(i==0):                                                 #### And they are in correct order !!!
                     lowEdge[j] = DicNumpyArray_branch.values()[j][0]        ####### you can set the low & high edge manually #FIXME
                     highEdge[j] = DicNumpyArray_branch.values()[j][0]      #### e.g.  "lowEdge[j] = -10", "highEdge[j] = 10"
@@ -136,19 +126,11 @@ def set_histo_xrange(FILENAME,BRANCHLISTALL,BranchListEachTree):
                         lowEdge[j] = DicNumpyArray_branch.values()[j][0]
                     if(DicNumpyArray_branch.values()[j][0] > highEdge[j]):
                         highEdge[j] = DicNumpyArray_branch.values()[j][0]
-#        print("!!!!!",highEdge)
+#        print(highEdge)
         for k in range(len(DicNumpyArray_branch)):
-            if(DicNumpyArray_branch.keys()[k] in BranchListEachTree[tree.GetName()]):
-                pass
-            else:
-                continue
             lowEdge[k] = lowEdge[k] - (highEdge[k]-lowEdge[k])*0.05         ###### range setting  #FIXME
             highEdge[k] = highEdge[k] + (highEdge[k]-lowEdge[k])*0.05      
         for l in range(len(DicNumpyArray_branch)):
-            if(DicNumpyArray_branch.keys()[l] in BranchListEachTree[tree.GetName()]):
-                pass
-            else:
-                continue
             tree_xrange[DicNumpyArray_branch.keys()[l]] = [lowEdge[l], highEdge[l]]
 
 #        print("\n")
@@ -156,64 +138,46 @@ def set_histo_xrange(FILENAME,BRANCHLISTALL,BranchListEachTree):
         key = ITER.Next()
 
 #    print(histo_xrange)
-    f.Close()
     return histo_xrange
 
 
 
 
-def Fill_histograms(FILENAME,BRANCHLISTALL,DICHISTLIST, BranchListEachTree):
+def Fill_histograms(FILENAME,BRANCHLISTALL,DICHISTLIST):
     gBenchmark.Start("Filling & Writing Histograms")
-#    print("!@#!@#!#",DICHISTLIST.keys())
-#    print("!@#!@#!",BRANCHLISTALL)
     DicNumpyArray_branch = {}
     for numpyarray in BRANCHLISTALL:
         a = numpy.array([0],'d')
         DicNumpyArray_branch[numpyarray] = a
     DicNumpyArray_branch = collections.OrderedDict(sorted(DicNumpyArray_branch.items()))    #  !!!the input times are ordered!!!
-#    print("!@#!@#!#",DicNumpyArray_branch)
+#    print(DicNumpyArray_branch)
 
+#    print("!!!!!!",(len(DicNumpyArray_branch)))        # correct DicNumpyArray_branch
     f = TFile(FILENAME,"READ")
     dirlist = f.GetListOfKeys()
     ITER = dirlist.MakeIterator()
     key =  ITER.Next()
     while key:
-        it = 0
         tree = key.ReadObj()
-#        print("!@#!@#!#",DICHISTLIST[tree.GetName()])
+#        print("!!!!!!",len(DICHISTLIST[tree.GetName()]))   # not correct, returning 13 which should be 10
         for i in range(len(DicNumpyArray_branch)):
-            if(DicNumpyArray_branch.keys()[i] in BranchListEachTree[tree.GetName()]):
-                it = it + 1
-                pass
-            else:
-                continue
             tree.SetBranchAddress(DicNumpyArray_branch.keys()[i], DicNumpyArray_branch.values()[i])
-        
-        if(it==0):
-            continue
-
         ENTRY = tree.GetEntries()
         print("for tree", tree.GetName())
         for i in range(ENTRY):
             tree.GetEntry(i)
-            if(i%1000 == 0):
+            if(i%5000 == 0):
                 print("now looping", i, "th Events, total of ", ENTRY, "events")
-            
-#            for j in range(len(DICHISTLIST[tree.GetName()])):
-            for j in range(len(DicNumpyArray_branch)):
+            for j in range(len(DICHISTLIST[tree.GetName()])):
                 for k in range(len(DICHISTLIST[tree.GetName()])):
                     if(DicNumpyArray_branch.keys()[j] in DICHISTLIST[tree.GetName()][k].GetName()):
                         DICHISTLIST[tree.GetName()][k].Fill(DicNumpyArray_branch.values()[j][0])
                     else:
                         continue
 
-#DICHISTLIST[tree.GetName()][k].Scale(DicNumpyArray_branch["JWeight"][j][0])
-
-
         key = ITER.Next()
 #    print(DICHISTLIST)
 #    gBenchmark.Show("filling")
-    f.Close()
     return DICHISTLIST
 
 
@@ -227,7 +191,7 @@ def CONVERT_WORKING(filename, outputpath = "" ):
     print(FileNameList)
     BranchListAll = get_branch_list_all(FileNameList[2])
     BranchListEachTree = get_branch_list_each_tree(FileNameList[2])
-    histo_xrange = set_histo_xrange(FileNameList[2], BranchListAll,BranchListEachTree)
+    histo_xrange = set_histo_xrange(FileNameList[2], BranchListAll)
 
 #    print(BranchListEachTree)
   
@@ -235,17 +199,18 @@ def CONVERT_WORKING(filename, outputpath = "" ):
     IJK = 0     # number of all element included in all tree.
     for i in range(len(BranchListEachTree.keys())):
         Tlist = (BranchListEachTree.keys())
+#        print(BranchListEachTree[Tlist[i]])
         for j in range(len(BranchListEachTree[Tlist[i]])):
             IJK = IJK +1 
 #    print(IJK)
 
     NBins = []                      ### here you can enter the bin numbers of each!!!!!
     for ii in range(IJK):
-        NBins.append(10)
+        NBins.append(100)
 
 #    print("NBins =", NBins)
 #    NBins = [,,,,,]      #FIXME #FIXME #FIXME #FIXME #FIXME #FIXME #FIXME #FIXME #FIXME #FIXME #FIXME #FIXME #FIXME #FIXME 
-#    NBins = [40,40,40,40,40]  #!!!!!for soomin
+
 
     f = TFile(FileNameList[2],"READ")
     dirlist = f.GetListOfKeys()
@@ -261,12 +226,16 @@ def CONVERT_WORKING(filename, outputpath = "" ):
             continue
         ITER_b = branchlist.MakeIterator()
         key_b = ITER_b.Next()
+#        print(len(histo_xrange[tree.GetName()]),"!!!!!!!")   # correct histo range
         while key_b:
+#            print("!!!!", tree.GetName())  ## correctly rotating
             Namehist = FileNameList[0] + "_"+ tree.GetName() + "_" + key_b.GetName()
+#            print(FileNameList[0])
+#            print(tree.GetName())
             ijk = 0
+#            print("@#!@#!@#!",len(histo_xrange[tree.GetName()]))    # correct 10
             for j in range(len(histo_xrange[tree.GetName()])):
-#                if key_b.GetName() in histo_xrange[tree.GetName()].keys()[j]:    ##### This is initally problem causing line... Keep this line
-                if key_b.GetName() == histo_xrange[tree.GetName()].keys()[j]:    #### problem causing ### FIXME 
+                if key_b.GetName() in histo_xrange[tree.GetName()].keys()[j]:
                      hist = TH1D(Namehist, Namehist, NBins[ijk], histo_xrange[tree.GetName()].values()[j][0], histo_xrange[tree.GetName()].values()[j][1])
                      histList.append(hist)
                      ijk = ijk + 1
@@ -276,12 +245,20 @@ def CONVERT_WORKING(filename, outputpath = "" ):
             key_b = ITER_b.Next()
         DichistList[tree.GetName()] = histList
         key = ITER.Next()
+#    print("!@#!@", len(histList))   # wrong, 13, which should be 10
 
-    dicHistList =  Fill_histograms(FileNameList[2], BranchListAll, DichistList, BranchListEachTree)
 
+#    print (DichistList);   ## wrong,, 13 branch which should be 10
+#    print("!!!!!!", len(DichistList), "!!!!!")
+
+    dicHistList =  Fill_histograms(FileNameList[2], BranchListAll, DichistList)
+#    print(dicHistList)
+
+#    print(outputpath)
     if(outputpath == ''):
         Name_Output_File = FileNameList[3] + "/" + FileNameList[0] + "_hist.root"
         Name_Output_File = Name_Output_File.replace("//","/")
+#        print("!@#!@!@#!@ ",Name_Output_File)
     elif(outputpath[0] == "/"):
         Name_Output_File = outputpath + "/"+ FileNameList[0] + "_hist.root"
         Name_Output_File = Name_Output_File.replace("//","/")
@@ -298,10 +275,10 @@ def CONVERT_WORKING(filename, outputpath = "" ):
 #    Name_Output_File = FileNameList[0] + "_hist.root"
     outfile = TFile(Name_Output_File,"RECREATE")
 
+
     for i in range(len(dicHistList)):
         for j in range(len(dicHistList.values()[i])):
             dicHistList.values()[i][j].Write()
-#            dicHistList.values()[i][j].Print()
     print("")
     print("////////////////////////////////////////////////")
     print("outputfile : ")
@@ -316,7 +293,7 @@ def CONVERT_WORKING(filename, outputpath = "" ):
 
     print("NBins =", NBins)
     print("\n")
-    f.Close()
+
     return Name_Output_File
 
 

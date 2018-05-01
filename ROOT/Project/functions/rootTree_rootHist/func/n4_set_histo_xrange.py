@@ -48,6 +48,7 @@ def set_histo_xrange(FILENAME,BRANCHLISTALL):
         histo_xrange[tree.GetName()] = tree_xrange
         key = ITER.Next()
 
+    f.Close()
 #    print(histo_xrange)
     return histo_xrange
 

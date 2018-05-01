@@ -32,7 +32,7 @@ def Find_Loca(histoName):
     return LOCA
 
 def BranchName(histoName):
-    Loca = Find_Loca(histoName); #print(Loca)
+    Loca = Find_Loca(histoName); #print(histoName,Loca,"!@#!@#!@#")
     BRANCHNAME = histoName.replace(histoName[:-Loca],"")
     return BRANCHNAME
 
@@ -246,7 +246,7 @@ def Fill_histograms(FILENAME,BRANCHLISTALL,DICHISTLIST,BranchListEachTree):
 
 
 
-def CONVERT_WORKING2D(filename, outputpath = "" , NBins=200):
+def CONVERT_WORKING2D(filename, outputpath = "" , NBins=50, NYBins=50):    ### FIXME
 
     print("*********************************************************************************************")
     print("            This is 2D histo filling process          ")
@@ -284,7 +284,8 @@ def CONVERT_WORKING2D(filename, outputpath = "" , NBins=200):
 #                    hist = TH2D(Name2DHist, Name2DHist, 200, histo_xrange[tree.GetName()][key_b.GetName()][0], histo_xrange[tree.GetName()][key_b.GetName()][1], 200, histo_xrange[tree.GetName()][key_bb.GetName()][0], histo_xrange[tree.GetName()][key_bb.GetName()][1])
 #FIXME #FIXME #FIXME #FIXME #FIXME #FIXME #FIXME #FIXME #FIXME #FIXME #FIXME #FIXME  Set bin number !!!!!
 
-                    hist = TH2D(Name2DHist, Name2DHist, NBins, histo_xrange[tree.GetName()][key_b.GetName()][0], histo_xrange[tree.GetName()][key_b.GetName()][1], NBins, histo_xrange[tree.GetName()][key_bb.GetName()][0], histo_xrange[tree.GetName()][key_bb.GetName()][1])  ##for soomin
+#                    hist = TH2D(Name2DHist, Name2DHist, NBins, histo_xrange[tree.GetName()][key_b.GetName()][0], histo_xrange[tree.GetName()][key_b.GetName()][1], NBins, histo_xrange[tree.GetName()][key_bb.GetName()][0], histo_xrange[tree.GetName()][key_bb.GetName()][1])  ##for soomin
+                    hist = TH2D(Name2DHist, Name2DHist, NBins, histo_xrange[tree.GetName()][key_b.GetName()][0], histo_xrange[tree.GetName()][key_b.GetName()][1], NYBins, histo_xrange[tree.GetName()][key_bb.GetName()][0], histo_xrange[tree.GetName()][key_bb.GetName()][1])  
 
                     histList.append(hist)
                     indicator = indicator + 1

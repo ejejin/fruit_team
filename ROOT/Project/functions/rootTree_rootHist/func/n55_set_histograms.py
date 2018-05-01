@@ -36,6 +36,7 @@ class SET_HIST(TH1D):
             key = ITER.Next()
 
         print(DichistList)
+        f.Close()
         return DichistList
 
 

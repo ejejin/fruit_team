@@ -22,6 +22,7 @@ def showcase_set_branch_address(BRANCHLISTALL, PATH_FILE_NAME):
             #print(DicNumpyArray_branch.keys()[i])
         key = ITER.Next()
 
+    f.Close()
     print("!!! This is just a showcase of SetBranchAddress, not really set !!!")
     return DicNumpyArray_branch
 
