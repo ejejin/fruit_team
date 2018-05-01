@@ -105,7 +105,8 @@ def BreakOrNot(BRANCHLISTEACHTREE):
  
     
     print("Have put reasonable CUT ?")
-    DETER = raw_input("(Y/N) : ")
+#    DETER = raw_input("(Y/N) : ")
+    DETER = input("(Y/N) : ")
     return DETER
 
 
