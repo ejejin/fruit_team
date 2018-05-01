@@ -235,7 +235,7 @@ def CONVERT_WORKING(filename, outputpath = "" ):
     IJK = 0     # number of all element included in all tree.
     for i in range(len(BranchListEachTree.keys())):
         Tlist = (BranchListEachTree.keys())
-        for j in range(len(BranchListEachTree[Tlist[i]])):
+        for j in range(len(BranchListEachTree[list(Tlist)[i]])):
             IJK = IJK +1 
 #    print(IJK)
 
