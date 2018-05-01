@@ -207,8 +207,8 @@ def REGENERATE_TREE_WITH_CUT(filename, outputpath = ''):
             ENTRY = tree.GetEntries();  #print(ENTRY)
             for i in range(len(DicNumpyArray_branch)):
                 if(list(DicNumpyArray_branch.keys())[i] in BranchListEachTree[tree.GetName()]):
-                    tree.SetBranchAddress(list(DicNumpyArray_branch.keys())[i],DicNumpyArray_branch.values()[i])  
-                    tree_f.Branch(list(DicNumpyArray_branch_w.keys())[i],DicNumpyArray_branch_w.values()[i],list(DicNumpyArray_branch_w.keys())[i]+"/D")           
+                    tree.SetBranchAddress(list(DicNumpyArray_branch.keys())[i],list(DicNumpyArray_branch.values())[i])  
+                    tree_f.Branch(list(DicNumpyArray_branch_w.keys())[i],list(DicNumpyArray_branch_w.values())[i],list(DicNumpyArray_branch_w.keys())[i]+"/D")           
                 else:
                     continue
  
@@ -223,7 +223,7 @@ def REGENERATE_TREE_WITH_CUT(filename, outputpath = ''):
                         pass
                     else:
                         continue
-                    DicNumpyArray_branch_w.values()[k][0] = DicNumpyArray_branch.values()[k][0]
+                    list(DicNumpyArray_branch_w.values())[k][0] = list(DicNumpyArray_branch.values())[k][0]
 #                    if(j==0):
 #                        print(k,DicNumpyArray_branch_w.keys()[k])
 #                        print(DicNumpyArray_branch_w.keys()[k])
@@ -232,7 +232,7 @@ def REGENERATE_TREE_WITH_CUT(filename, outputpath = ''):
     
                 if(   True                                            #FIXME#FIXME#FIXME#FIXME#FIXME#FIXME#FIXME#FIXME#FIXME#FIXME
 
-                   & (DicNumpyArray_branch.values()[0][0] > 0)
+                   & (list(DicNumpyArray_branch.values())[0][0] > 0)
 #                   & (DicNumpyArray_branch.values()[5][0] > 20)  #        # [i][0]  means "i+1"th branch of each tree, [0] don't change   #FIXME#FIXME#FIXME#FIXME
 #                   &  (DicNumpyArray_branch.values()[5][0] < 90) #
 #                   &  (DicNumpyArray_branch.values()[1][0] > 0)  #CO      #FIXME#FIXME#FIXME#FIXME#FIXME#FIXME#FIXME#FIXME#FIXME#FIXME#FIXME
