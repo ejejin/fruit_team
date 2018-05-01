@@ -220,7 +220,7 @@ def Fill_histograms(FILENAME,BRANCHLISTALL,DICHISTLIST, BranchListEachTree):
 
 ################################## main code #########################
 
-def CONVERT_WORKING(filename, outputpath = "" ):
+def CONVERT_WORKING(filename, outputpath = "" ,D1_NBins=100):
 
 
     FileNameList = read_file_name(filename)
@@ -241,7 +241,7 @@ def CONVERT_WORKING(filename, outputpath = "" ):
 
     NBins = []                      ### here you can enter the bin numbers of each!!!!!
     for ii in range(IJK):
-        NBins.append(10)
+        NBins.append(D1_NBins)
 
 #    print("NBins =", NBins)
 #    NBins = [,,,,,]      #FIXME #FIXME #FIXME #FIXME #FIXME #FIXME #FIXME #FIXME #FIXME #FIXME #FIXME #FIXME #FIXME #FIXME 
