@@ -39,6 +39,9 @@ void n3_TGraphs::Draw_TGraphs(vector<vector<string>> colum_tree_vector, int mark
             }
   
             TGraph *gr = new TGraph(NUM,x,y);
+            Double_t correlation_factor = gr->GetCorrelationFactor();
+            Double_t covarianve = gr->GetCovariance();
+//            cout<<correlation_factor<<","<<covarianve<<endl;
             string TitleName = "X_"+colum_tree_vector.at(j).at(0)+"_Y_"+colum_tree_vector.at(k).at(0);
             gr->SetTitle(TitleName.data());
             gr->SetMarkerStyle(marker_style);
@@ -93,25 +96,48 @@ void n3_TGraphs::Draw_TGraphs_small(vector<vector<string>> colum_tree_vector, in
             }
 
             TGraph *gr = new TGraph(NUM,x,y);
+            Double_t correlation_factor = gr->GetCorrelationFactor();
+            Double_t covarianve = gr->GetCovariance();
+//            cout<<correlation_factor<<","<<covarianve<<endl;
             string TitleName = "X_"+colum_tree_vector.at(k).at(0)+"_Y_"+colum_tree_vector.at(j).at(0);
             gr->SetTitle(TitleName.data());
             gr->SetMarkerStyle(marker_style);
             gr->Draw("AP");
-
             if(k<4)
             {
+                auto legend = new TLegend(0.5,0.8,0.9,0.9);
+//                legend->SetHeader("The Legend Title","C");
+                string str_corr_fac = to_string(correlation_factor);
+                string corr_fac = "co-factor : "+ str_corr_fac;
+                legend->AddEntry((TObject*)0,corr_fac.c_str(),"");
+                legend->SetTextSize(0.05);
+                legend->Draw();
                 c1->Update();
                 c1->GetFrame()->SetBorderSize(12);
                 c1->Modified();
             }
             else if(k>=4)
             {
+                auto legend = new TLegend(0.5,0.8,0.9,0.9);
+//                legend->SetHeader("The Legend Title","C");
+                string str_corr_fac = to_string(correlation_factor);
+                string corr_fac = "co-factor : "+ str_corr_fac;
+                legend->AddEntry((TObject*)0,corr_fac.c_str(),"");
+                legend->SetTextSize(0.05);
+                legend->Draw();
                 c2->Update();
                 c2->GetFrame()->SetBorderSize(12);
                 c2->Modified();
             }
             else if (k>=8)
             {
+                auto legend = new TLegend(0.5,0.8,0.9,0.9);
+//                legend->SetHeader("The Legend Title","C");
+                string str_corr_fac = to_string(correlation_factor);
+                string corr_fac = "co-factor : "+ str_corr_fac;
+                legend->AddEntry((TObject*)0,corr_fac.c_str(),"");
+                legend->SetTextSize(0.05);
+                legend->Draw();
                 c3->Update();
                 c3->GetFrame()->SetBorderSize(12);
                 c3->Modified();
