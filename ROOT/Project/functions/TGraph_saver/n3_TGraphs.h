@@ -97,6 +97,8 @@ void n3_TGraphs::Draw_TGraphs_small(vector<vector<string>> colum_tree_vector, in
 
             TGraph *gr = new TGraph(NUM,x,y);
             Double_t correlation_factor = gr->GetCorrelationFactor();
+            double corr3 = floor(correlation_factor*10000.00f + 0.5) / 10000.00f;
+//            cout<<corr3<<endl;
             Double_t covarianve = gr->GetCovariance();
 //            cout<<correlation_factor<<","<<covarianve<<endl;
             string TitleName = "X_"+colum_tree_vector.at(k).at(0)+"_Y_"+colum_tree_vector.at(j).at(0);
@@ -105,9 +107,11 @@ void n3_TGraphs::Draw_TGraphs_small(vector<vector<string>> colum_tree_vector, in
             gr->Draw("AP");
             if(k<4)
             {
-                auto legend = new TLegend(0.5,0.8,0.9,0.9);
+                auto legend = new TLegend(0.5,0.8,0.88,0.88);
+                legend->SetTextColor(kRed);
+                legend->SetBorderSize(0);
 //                legend->SetHeader("The Legend Title","C");
-                string str_corr_fac = to_string(correlation_factor);
+                string str_corr_fac = to_string(corr3);
                 string corr_fac = "co-factor : "+ str_corr_fac;
                 legend->AddEntry((TObject*)0,corr_fac.c_str(),"");
                 legend->SetTextSize(0.05);
@@ -118,9 +122,11 @@ void n3_TGraphs::Draw_TGraphs_small(vector<vector<string>> colum_tree_vector, in
             }
             else if(k>=4)
             {
-                auto legend = new TLegend(0.5,0.8,0.9,0.9);
+                auto legend = new TLegend(0.5,0.8,0.88,0.88);
+                legend->SetTextColor(kRed);
+                legend->SetBorderSize(0);
 //                legend->SetHeader("The Legend Title","C");
-                string str_corr_fac = to_string(correlation_factor);
+                string str_corr_fac = to_string(corr3);
                 string corr_fac = "co-factor : "+ str_corr_fac;
                 legend->AddEntry((TObject*)0,corr_fac.c_str(),"");
                 legend->SetTextSize(0.05);
@@ -131,9 +137,11 @@ void n3_TGraphs::Draw_TGraphs_small(vector<vector<string>> colum_tree_vector, in
             }
             else if (k>=8)
             {
-                auto legend = new TLegend(0.5,0.8,0.9,0.9);
+                auto legend = new TLegend(0.5,0.8,0.88,0.88);
+                legend->SetTextColor(kRed);
+                legend->SetBorderSize(0);
 //                legend->SetHeader("The Legend Title","C");
-                string str_corr_fac = to_string(correlation_factor);
+                string str_corr_fac = to_string(corr3);
                 string corr_fac = "co-factor : "+ str_corr_fac;
                 legend->AddEntry((TObject*)0,corr_fac.c_str(),"");
                 legend->SetTextSize(0.05);
