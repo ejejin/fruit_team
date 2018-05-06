@@ -68,12 +68,18 @@ void n3_TGraphs::Draw_TGraphs_small(vector<vector<string>> colum_tree_vector, in
         TCanvas *c1 = new TCanvas(); 
         TCanvas *c2 = new TCanvas();
         TCanvas *c3 = new TCanvas();
+        TCanvas *c4 = new TCanvas();
+        TCanvas *c5 = new TCanvas();
         c1->SetGrid(); 
         c2->SetGrid();
         c3->SetGrid();
+        c4->SetGrid();
+        c5->SetGrid();
         c1->Divide(2,2);
         c2->Divide(2,2);
-        c3->Divide(2,2); 
+        c3->Divide(2,2);
+        c4->Divide(2,2);
+        c5->Divide(2,2); 
 
         for(int k=0; k<colum_tree_vector.size(); k++)
         {
@@ -99,13 +105,13 @@ void n3_TGraphs::Draw_TGraphs_small(vector<vector<string>> colum_tree_vector, in
             }
             if (k>=12)
             {
-                if(k==12) {/*TCanvas *c3 = new TCanvas(); c3->Divide(2,3);*/ c3->cd(1);}
-                else c3->cd(k-11);
+                if(k==12) {/*TCanvas *c4 = new TCanvas(); c4->Divide(2,3);*/ c4->cd(1);}
+                else c4->cd(k-11);
             }
             if (k>=16)
             {
-                if(k==16) {/*TCanvas *c3 = new TCanvas(); c3->Divide(2,3);*/ c3->cd(1);}
-                else c3->cd(k-15);
+                if(k==16) {/*TCanvas *c5 = new TCanvas(); c5->Divide(2,3);*/ c5->cd(1);}
+                else c5->cd(k-15);
             }
 
             TGraph *gr = new TGraph(NUM-1,x,y);
@@ -188,9 +194,9 @@ void n3_TGraphs::Draw_TGraphs_small(vector<vector<string>> colum_tree_vector, in
                 legend->AddEntry((TObject*)0,corr_fac.c_str(),"");
                 legend->SetTextSize(0.05);
                 legend->Draw();
-                c3->Update();
-                c3->GetFrame()->SetBorderSize(12);
-                c3->Modified();
+                c4->Update();
+                c4->GetFrame()->SetBorderSize(12);
+                c4->Modified();
             }
             else if (k>=16)
             {
@@ -204,9 +210,9 @@ void n3_TGraphs::Draw_TGraphs_small(vector<vector<string>> colum_tree_vector, in
                 legend->AddEntry((TObject*)0,corr_fac.c_str(),"");
                 legend->SetTextSize(0.05);
                 legend->Draw();
-                c3->Update();
-                c3->GetFrame()->SetBorderSize(12);
-                c3->Modified();
+                c5->Update();
+                c5->GetFrame()->SetBorderSize(12);
+                c5->Modified();
             }
 //            string SAVENAME = "X_"+colum_tree_vector.at(j).at(0)+"_Y_"+colum_tree_vector.at(k).at(0)+"_Tgraph_basic.pdf";
 //            c1->SaveAs(SAVENAME.data());
@@ -229,15 +235,15 @@ void n3_TGraphs::Draw_TGraphs_small(vector<vector<string>> colum_tree_vector, in
         }
         if(colum_tree_vector.size() >=12)
         {
-            string c3_SAVENAME = "Y_"+colum_tree_vector.at(j).at(0)+"_Tgraph_basic_3.pdf";
-            c3->SaveAs(c3_SAVENAME.data());
-            c3->Clear(); 
+            string c4_SAVENAME = "Y_"+colum_tree_vector.at(j).at(0)+"_Tgraph_basic_3.pdf";
+            c4->SaveAs(c4_SAVENAME.data());
+            c4->Clear(); 
         }
         if(colum_tree_vector.size() >=16)
         {
-            string c3_SAVENAME = "Y_"+colum_tree_vector.at(j).at(0)+"_Tgraph_basic_3.pdf";
-            c3->SaveAs(c3_SAVENAME.data());
-            c3->Clear(); 
+            string c5_SAVENAME = "Y_"+colum_tree_vector.at(j).at(0)+"_Tgraph_basic_3.pdf";
+            c5->SaveAs(c5_SAVENAME.data());
+            c5->Clear(); 
         }
     }
 }
