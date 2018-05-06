@@ -235,13 +235,13 @@ void n3_TGraphs::Draw_TGraphs_small(vector<vector<string>> colum_tree_vector, in
         }
         if(colum_tree_vector.size() >=12)
         {
-            string c4_SAVENAME = "Y_"+colum_tree_vector.at(j).at(0)+"_Tgraph_basic_3.pdf";
+            string c4_SAVENAME = "Y_"+colum_tree_vector.at(j).at(0)+"_Tgraph_basic_4.pdf";
             c4->SaveAs(c4_SAVENAME.data());
             c4->Clear(); 
         }
         if(colum_tree_vector.size() >=16)
         {
-            string c5_SAVENAME = "Y_"+colum_tree_vector.at(j).at(0)+"_Tgraph_basic_3.pdf";
+            string c5_SAVENAME = "Y_"+colum_tree_vector.at(j).at(0)+"_Tgraph_basic_5.pdf";
             c5->SaveAs(c5_SAVENAME.data());
             c5->Clear(); 
         }
