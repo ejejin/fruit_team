@@ -97,6 +97,16 @@ void n3_TGraphs::Draw_TGraphs_small(vector<vector<string>> colum_tree_vector, in
                 if(k==8) {/*TCanvas *c3 = new TCanvas(); c3->Divide(2,3);*/ c3->cd(1);}
                 else c3->cd(k-7);
             }
+            if (k>=12)
+            {
+                if(k==12) {/*TCanvas *c3 = new TCanvas(); c3->Divide(2,3);*/ c3->cd(1);}
+                else c3->cd(k-11);
+            }
+            if (k>=16)
+            {
+                if(k==16) {/*TCanvas *c3 = new TCanvas(); c3->Divide(2,3);*/ c3->cd(1);}
+                else c3->cd(k-15);
+            }
 
             TGraph *gr = new TGraph(NUM-1,x,y);
             Double_t correlation_factor = gr->GetCorrelationFactor();
@@ -166,6 +176,38 @@ void n3_TGraphs::Draw_TGraphs_small(vector<vector<string>> colum_tree_vector, in
                 c3->GetFrame()->SetBorderSize(12);
                 c3->Modified();
             }
+            else if (k>=12)
+            {
+                auto legend = new TLegend(0.5,0.8,0.88,0.88);
+                legend->SetTextColor(kRed);
+                legend->SetBorderSize(0);
+                legend->SetFillStyle(0);
+//                legend->SetHeader("The Legend Title","C");
+                string str_corr_fac = to_string(correlation_factor);
+                string corr_fac = "co-factor : "+ str_corr_fac;
+                legend->AddEntry((TObject*)0,corr_fac.c_str(),"");
+                legend->SetTextSize(0.05);
+                legend->Draw();
+                c3->Update();
+                c3->GetFrame()->SetBorderSize(12);
+                c3->Modified();
+            }
+            else if (k>=16)
+            {
+                auto legend = new TLegend(0.5,0.8,0.88,0.88);
+                legend->SetTextColor(kRed);
+                legend->SetBorderSize(0);
+                legend->SetFillStyle(0);
+//                legend->SetHeader("The Legend Title","C");
+                string str_corr_fac = to_string(correlation_factor);
+                string corr_fac = "co-factor : "+ str_corr_fac;
+                legend->AddEntry((TObject*)0,corr_fac.c_str(),"");
+                legend->SetTextSize(0.05);
+                legend->Draw();
+                c3->Update();
+                c3->GetFrame()->SetBorderSize(12);
+                c3->Modified();
+            }
 //            string SAVENAME = "X_"+colum_tree_vector.at(j).at(0)+"_Y_"+colum_tree_vector.at(k).at(0)+"_Tgraph_basic.pdf";
 //            c1->SaveAs(SAVENAME.data());
 //            c1->Clear();
@@ -184,6 +226,18 @@ void n3_TGraphs::Draw_TGraphs_small(vector<vector<string>> colum_tree_vector, in
             string c3_SAVENAME = "Y_"+colum_tree_vector.at(j).at(0)+"_Tgraph_basic_3.pdf";
             c3->SaveAs(c3_SAVENAME.data());
             c3->Clear();  
+        }
+        if(colum_tree_vector.size() >=12)
+        {
+            string c3_SAVENAME = "Y_"+colum_tree_vector.at(j).at(0)+"_Tgraph_basic_3.pdf";
+            c3->SaveAs(c3_SAVENAME.data());
+            c3->Clear(); 
+        }
+        if(colum_tree_vector.size() >=16)
+        {
+            string c3_SAVENAME = "Y_"+colum_tree_vector.at(j).at(0)+"_Tgraph_basic_3.pdf";
+            c3->SaveAs(c3_SAVENAME.data());
+            c3->Clear(); 
         }
     }
 }
