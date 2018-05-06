@@ -24,7 +24,8 @@ def Find_Loca(histoName):
     LOCA = len(histoName)
     for i in range (1,len(histoName)+1):
         if(histoName[-i] == "_"):
-            if((histoName[-i-1]=="f")&(histoName[-i-2]=="_") ):
+#            if((histoName[-i-1]=="f")&(histoName[-i-2]=="_") ):
+            if((histoName[-i-1]=="f")):
                 LOCA = i-1
                 break
             else:
