@@ -30,7 +30,7 @@ def set_histograms(FILENAME,S_FILENAME, HISTO_XRANGE, NBins=100):
             key_b = ITER_b.Next()
         DichistList[tree.GetName()] = histList
         key = ITER.Next()
-    
+    f.Close() 
     print (DichistList)
     return DichistList
 

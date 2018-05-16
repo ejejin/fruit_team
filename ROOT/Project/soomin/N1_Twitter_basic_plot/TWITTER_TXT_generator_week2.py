@@ -1,3 +1,4 @@
+###This code is for calulating total words, total positive words, total negative words, tweet number :: txt file
 import os
 
 
@@ -71,23 +72,23 @@ def readLines(filename):
 def main():
     list_Filename =list()
 
-#    list_Filename = ["LA/beer_LA/beer_0326Mon_LA.txt","LA/beer_LA/beer_0327Tue_LA.txt","LA/beer_LA/beer_0328Wed_LA.txt","LA/beer_LA/beer_0329Thu_LA.txt","LA/beer_LA/beer_0330Fri_LA.txt","LA/beer_LA/beer_0331Sat_LA.txt","LA/beer_LA/beer_0401Sun_LA.txt",
-#"LA/coffee_LA/coffee_0326Mon_LA.txt","LA/coffee_LA/coffee_0327Tue_LA.txt","LA/coffee_LA/coffee_0328Wed_LA.txt","LA/coffee_LA/coffee_0329Thu_LA.txt","LA/coffee_LA/coffee_0330Fri_LA.txt","LA/coffee_LA/coffee_0331Sat_LA.txt","LA/coffee_LA/coffee_0401Sun_LA.txt",
-#"LA/coke_n_cola_LA/COLA_COKE_0326Mon_LA.txt","LA/coke_n_cola_LA/COLA_COKE_0327Tue_LA.txt","LA/coke_n_cola_LA/COLA_COKE_0328Wed_LA.txt","LA/coke_n_cola_LA/COLA_COKE_0329Thu_LA.txt","LA/coke_n_cola_LA/COLA_COKE_0330Fri_LA.txt","LA/coke_n_cola_LA/COLA_COKE_0331Sat_LA.txt","LA/coke_n_cola_LA/COLA_COKE_0401Sun_LA.txt",
-#"LA/juice_LA/juice_0326Mon_LA.txt","LA/juice_LA/juice_0327Tue_LA.txt","LA/juice_LA/juice_0328Wed_LA.txt","LA/juice_LA/juice_0329Thu_LA.txt","LA/juice_LA/juice_0330Fri_LA.txt","LA/juice_LA/juice_0331Sat_LA.txt","LA/juice_LA/juice_0401Sun_LA.txt",
-#"LA/tea_LA/tea_0326Mon_LA.txt","LA/tea_LA/tea_0327Tue_LA.txt","LA/tea_LA/tea_0328Wed_LA.txt","LA/tea_LA/tea_0329Thu_LA.txt","LA/tea_LA/tea_0330Fri_LA.txt","LA/tea_LA/tea_0331Sat_LA.txt","LA/tea_LA/tea_0401Sun_LA.txt",
-#"LA/water_LA/water_0326Mon_LA.txt","LA/water_LA/water_0327Tue_LA.txt","LA/water_LA/water_0328Wed_LA.txt","LA/water_LA/water_0329Thu_LA.txt","LA/water_LA/water_0330Fri_LA.txt","LA/water_LA/water_0331Sat_LA.txt","LA/water_LA/water_0401Sun_LA.txt",
-#"LA/wine_LA/wine_0326Mon_LA.txt","LA/wine_LA/wine_0327Tue_LA.txt","LA/wine_LA/wine_0328Wed_LA.txt","LA/wine_LA/wine_0329Thu_LA.txt","LA/wine_LA/wine_0330Fri_LA.txt","LA/wine_LA/wine_0331Sat_LA.txt","LA/wine_LA/wine_0401Sun_LA.txt"]
+    list_Filename = ["LA/beer_LA/beer_0326Mon_LA.txt","LA/beer_LA/beer_0327Tue_LA.txt","LA/beer_LA/beer_0328Wed_LA.txt","LA/beer_LA/beer_0329Thu_LA.txt","LA/beer_LA/beer_0330Fri_LA.txt","LA/beer_LA/beer_0331Sat_LA.txt","LA/beer_LA/beer_0401Sun_LA.txt",
+"LA/coffee_LA/coffee_0326Mon_LA.txt","LA/coffee_LA/coffee_0327Tue_LA.txt","LA/coffee_LA/coffee_0328Wed_LA.txt","LA/coffee_LA/coffee_0329Thu_LA.txt","LA/coffee_LA/coffee_0330Fri_LA.txt","LA/coffee_LA/coffee_0331Sat_LA.txt","LA/coffee_LA/coffee_0401Sun_LA.txt",
+"LA/coke_n_cola_LA/COLA_COKE_0326Mon_LA.txt","LA/coke_n_cola_LA/COLA_COKE_0327Tue_LA.txt","LA/coke_n_cola_LA/COLA_COKE_0328Wed_LA.txt","LA/coke_n_cola_LA/COLA_COKE_0329Thu_LA.txt","LA/coke_n_cola_LA/COLA_COKE_0330Fri_LA.txt","LA/coke_n_cola_LA/COLA_COKE_0331Sat_LA.txt","LA/coke_n_cola_LA/COLA_COKE_0401Sun_LA.txt",
+"LA/juice_LA/juice_0326Mon_LA.txt","LA/juice_LA/juice_0327Tue_LA.txt","LA/juice_LA/juice_0328Wed_LA.txt","LA/juice_LA/juice_0329Thu_LA.txt","LA/juice_LA/juice_0330Fri_LA.txt","LA/juice_LA/juice_0331Sat_LA.txt","LA/juice_LA/juice_0401Sun_LA.txt",
+"LA/tea_LA/tea_0326Mon_LA.txt","LA/tea_LA/tea_0327Tue_LA.txt","LA/tea_LA/tea_0328Wed_LA.txt","LA/tea_LA/tea_0329Thu_LA.txt","LA/tea_LA/tea_0330Fri_LA.txt","LA/tea_LA/tea_0331Sat_LA.txt","LA/tea_LA/tea_0401Sun_LA.txt",
+"LA/water_LA/water_0326Mon_LA.txt","LA/water_LA/water_0327Tue_LA.txt","LA/water_LA/water_0328Wed_LA.txt","LA/water_LA/water_0329Thu_LA.txt","LA/water_LA/water_0330Fri_LA.txt","LA/water_LA/water_0331Sat_LA.txt","LA/water_LA/water_0401Sun_LA.txt",
+"LA/wine_LA/wine_0326Mon_LA.txt","LA/wine_LA/wine_0327Tue_LA.txt","LA/wine_LA/wine_0328Wed_LA.txt","LA/wine_LA/wine_0329Thu_LA.txt","LA/wine_LA/wine_0330Fri_LA.txt","LA/wine_LA/wine_0331Sat_LA.txt","LA/wine_LA/wine_0401Sun_LA.txt"]
 
 
 
-    list_Filename=["newyork/beer_newyork/beer_0326Mon_newyork.txt","newyork/beer_newyork/beer_0327Tue_newyork.txt","newyork/beer_newyork/beer_0328Wed_NY.txt","newyork/beer_newyork/beer_0329Thu_NY.txt","newyork/beer_newyork/beer_0330Fri_NY.txt","newyork/beer_newyork/beer_0331Sat_NY.txt","newyork/beer_newyork/beer_0401Sun_NY.txt",
-"newyork/coffee_newyork/coffee_0326Mon_newyork.txt","newyork/coffee_newyork/coffee_0327Tue_newyork.txt","newyork/coffee_newyork/coffee_0328Wed_NY.txt","newyork/coffee_newyork/coffee_0329Thu_NY.txt","newyork/coffee_newyork/coffee_0330Fri_NY.txt","newyork/coffee_newyork/coffee_0331Sat_NY.txt","newyork/coffee_newyork/coffee_0401Sun_NY.txt",
-"newyork/tea_newyork/tea_0326Mon_newyork.txt","newyork/tea_newyork/tea_0327Thu_newyork.txt","newyork/tea_newyork/tea_0328Wed_NY.txt","newyork/tea_newyork/tea_0329Thu_NY.txt","newyork/tea_newyork/tea_0330Fri_NY.txt","newyork/tea_newyork/tea_0331Sat_NY.txt","newyork/tea_newyork/tea_0401Sun_NY.txt",
-"newyork/juice_newyork/juice_0326Mon_newyork.txt","newyork/juice_newyork/juice_0327Tue_newyork.txt","newyork/juice_newyork/juice_0328Wed_NY.txt","newyork/juice_newyork/juice_0329Thu_NY.txt","newyork/juice_newyork/juice_0330Fri_NY.txt","newyork/juice_newyork/juice_0331Sat_NY.txt","newyork/juice_newyork/juice_0401Sun_NY.txt",
-"newyork/coke_n_cola_newyork/COLA_COKE_0326Mon_NY.txt","newyork/coke_n_cola_newyork/COLA_COKE_0327Tue_NY.txt","newyork/coke_n_cola_newyork/COLA_COKE_0328Wed_NY.txt","newyork/coke_n_cola_newyork/COLA_COKE_0329Thu_NY.txt","newyork/coke_n_cola_newyork/COLA_COKE_0330Fri_NY.txt","newyork/coke_n_cola_newyork/COLA_COKE_0331Sat_NY.txt","newyork/coke_n_cola_newyork/COLA_COKE_0401Sun_NY.txt",
-"newyork/water_newyork/water_0326Mon_newyork.txt","newyork/water_newyork/water_0327Tue_newyork.txt","newyork/water_newyork/water_0328Wed_NY.txt","newyork/water_newyork/water_0329Thu_NY.txt","newyork/water_newyork/water_0330Fri_NY.txt","newyork/water_newyork/water_0331Sat_NY.txt","newyork/water_newyork/water_0401Sun_NY.txt",
-"newyork/wine_newyork/wine_0326Mon_newyork.txt","newyork/wine_newyork/wine_0327Tue_newyork.txt","newyork/wine_newyork/wine_0328Wed_NY.txt","newyork/wine_newyork/wine_0329Thu_NY.txt","newyork/wine_newyork/wine_0330Fri_NY.txt","newyork/wine_newyork/wine_0331Sat_NY.txt","newyork/wine_newyork/wine_0401Sun_NY.txt"]
+#    list_Filename=["newyork/beer_newyork/beer_0326Mon_newyork.txt","newyork/beer_newyork/beer_0327Tue_newyork.txt","newyork/beer_newyork/beer_0328Wed_NY.txt","newyork/beer_newyork/beer_0329Thu_NY.txt","newyork/beer_newyork/beer_0330Fri_NY.txt","newyork/beer_newyork/beer_0331Sat_NY.txt","newyork/beer_newyork/beer_0401Sun_NY.txt",
+#"newyork/coffee_newyork/coffee_0326Mon_newyork.txt","newyork/coffee_newyork/coffee_0327Tue_newyork.txt","newyork/coffee_newyork/coffee_0328Wed_NY.txt","newyork/coffee_newyork/coffee_0329Thu_NY.txt","newyork/coffee_newyork/coffee_0330Fri_NY.txt","newyork/coffee_newyork/coffee_0331Sat_NY.txt","newyork/coffee_newyork/coffee_0401Sun_NY.txt",
+#"newyork/tea_newyork/tea_0326Mon_newyork.txt","newyork/tea_newyork/tea_0327Thu_newyork.txt","newyork/tea_newyork/tea_0328Wed_NY.txt","newyork/tea_newyork/tea_0329Thu_NY.txt","newyork/tea_newyork/tea_0330Fri_NY.txt","newyork/tea_newyork/tea_0331Sat_NY.txt","newyork/tea_newyork/tea_0401Sun_NY.txt",
+#"newyork/juice_newyork/juice_0326Mon_newyork.txt","newyork/juice_newyork/juice_0327Tue_newyork.txt","newyork/juice_newyork/juice_0328Wed_NY.txt","newyork/juice_newyork/juice_0329Thu_NY.txt","newyork/juice_newyork/juice_0330Fri_NY.txt","newyork/juice_newyork/juice_0331Sat_NY.txt","newyork/juice_newyork/juice_0401Sun_NY.txt",
+#"newyork/coke_n_cola_newyork/COLA_COKE_0326Mon_NY.txt","newyork/coke_n_cola_newyork/COLA_COKE_0327Tue_NY.txt","newyork/coke_n_cola_newyork/COLA_COKE_0328Wed_NY.txt","newyork/coke_n_cola_newyork/COLA_COKE_0329Thu_NY.txt","newyork/coke_n_cola_newyork/COLA_COKE_0330Fri_NY.txt","newyork/coke_n_cola_newyork/COLA_COKE_0331Sat_NY.txt","newyork/coke_n_cola_newyork/COLA_COKE_0401Sun_NY.txt",
+#"newyork/water_newyork/water_0326Mon_newyork.txt","newyork/water_newyork/water_0327Tue_newyork.txt","newyork/water_newyork/water_0328Wed_NY.txt","newyork/water_newyork/water_0329Thu_NY.txt","newyork/water_newyork/water_0330Fri_NY.txt","newyork/water_newyork/water_0331Sat_NY.txt","newyork/water_newyork/water_0401Sun_NY.txt",
+#"newyork/wine_newyork/wine_0326Mon_newyork.txt","newyork/wine_newyork/wine_0327Tue_newyork.txt","newyork/wine_newyork/wine_0328Wed_NY.txt","newyork/wine_newyork/wine_0329Thu_NY.txt","newyork/wine_newyork/wine_0330Fri_NY.txt","newyork/wine_newyork/wine_0331Sat_NY.txt","newyork/wine_newyork/wine_0401Sun_NY.txt"]
 
 
 

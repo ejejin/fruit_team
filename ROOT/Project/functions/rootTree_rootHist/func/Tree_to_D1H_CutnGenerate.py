@@ -92,7 +92,7 @@ def Noti():
 def BreakOrNot(BRANCHLISTEACHTREE):
 
 #    for i in range(len(BRANCHLISTEACHTREE)):
-    BRANCHLISTEACHTREE = {BRANCHLISTEACHTREE.keys()[0]:sorted(BRANCHLISTEACHTREE.items()[0][1])}
+    BRANCHLISTEACHTREE = {list(BRANCHLISTEACHTREE.keys())[0]:sorted(list(BRANCHLISTEACHTREE.items())[0][1])}
 #    print("compenets below :")
 #    print("\n")
 
@@ -205,9 +205,9 @@ def REGENERATE_TREE_WITH_CUT(filename, outputpath = ''):
             tree_f = TTree(tree.GetName()+"_f",tree.GetName()+"_f")
             ENTRY = tree.GetEntries();  #print(ENTRY)
             for i in range(len(DicNumpyArray_branch)):
-                if(DicNumpyArray_branch.keys()[i] in BranchListEachTree[tree.GetName()]):
-                    tree.SetBranchAddress(DicNumpyArray_branch.keys()[i],DicNumpyArray_branch.values()[i])  
-                    tree_f.Branch(DicNumpyArray_branch_w.keys()[i],DicNumpyArray_branch_w.values()[i],DicNumpyArray_branch_w.keys()[i]+"/D")           
+                if(list(DicNumpyArray_branch.keys())[i] in BranchListEachTree[tree.GetName()]):
+                    tree.SetBranchAddress(list(DicNumpyArray_branch.keys())[i],list(DicNumpyArray_branch.values())[i])  
+                    tree_f.Branch(list(DicNumpyArray_branch_w.keys())[i],list(DicNumpyArray_branch_w.values())[i],list(DicNumpyArray_branch_w.keys())[i]+"/D")           
                 else:
                     continue
  
@@ -218,11 +218,11 @@ def REGENERATE_TREE_WITH_CUT(filename, outputpath = ''):
                 if(j%5000 == 0):
                     print("now looping", j, "th Events, total of ", ENTRY, "events")
                 for k in range(len(DicNumpyArray_branch)):
-                    if(DicNumpyArray_branch.keys()[k] in BranchListEachTree[tree.GetName()]):    ### FIXED MAYBE not correct....
+                    if(list(DicNumpyArray_branch.keys())[k] in BranchListEachTree[tree.GetName()]):    ### FIXED MAYBE not correct....
                         pass
                     else:
                         continue
-                    DicNumpyArray_branch_w.values()[k][0] = DicNumpyArray_branch.values()[k][0]
+                    list(DicNumpyArray_branch_w.values())[k][0] = list(DicNumpyArray_branch.values())[k][0]
 #                    if(j==0):
 #                        print(k,DicNumpyArray_branch_w.keys()[k])
 #                        print(DicNumpyArray_branch_w.keys()[k])
@@ -231,7 +231,7 @@ def REGENERATE_TREE_WITH_CUT(filename, outputpath = ''):
     
                 if(   True                                            #FIXME#FIXME#FIXME#FIXME#FIXME#FIXME#FIXME#FIXME#FIXME#FIXME
 
-#                   & (DicNumpyArray_branch.values()[10][0] > 9)          # [i][0]  means "i+1"th branch of each tree, [0] don't change   #FIXME#FIXME#FIXME#FIXME
+#                   & (DicNumpyArray_branch.values()[0][0] > 0)          # [i][0]  means "i+1"th branch of each tree, [0] don't change   #FIXME#FIXME#FIXME#FIXME
                    #&  (DicNumpyArray_branch.values()[1][0] > 0)        #FIXME#FIXME#FIXME#FIXME#FIXME#FIXME#FIXME#FIXME#FIXME#FIXME#FIXME
                   ):
                     ijk = ijk + 1

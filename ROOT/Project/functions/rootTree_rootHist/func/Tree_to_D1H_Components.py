@@ -34,14 +34,14 @@ def Tree_to_D1H_Components(filename):
 #    print(BranchListEachTree_SAVE)
     for i in range(len(BranchListEachTree_SAVE.keys())):
         BranchListEachTree = BranchListEachTree_SAVE
-        BranchListEachTree = {BranchListEachTree.keys()[i]:sorted(BranchListEachTree.items()[i][1])}
+        BranchListEachTree = {list(BranchListEachTree.keys())[i]:sorted(list(BranchListEachTree.items())[i][1])}
         print("compenets below :")
 #        print("The Tree name is : ",BranchListEachTree.keys()[i])
         print("The Tree name is : ",BranchListEachTree.keys())
 #        print(BranchListEachTree[BranchListEachTree_SAVE.keys()[i]]) 
 #        for j in range(len(BranchListEachTree.values())):
-        for j in range(len(BranchListEachTree[BranchListEachTree_SAVE.keys()[i]])):
-            print(j, "      it contains : ",j, BranchListEachTree[BranchListEachTree_SAVE.keys()[i]][j])
+        for j in range(len(BranchListEachTree[list(BranchListEachTree_SAVE.keys())[i]])):
+            print(j, "      it contains : ",j, BranchListEachTree[list(BranchListEachTree_SAVE.keys())[i]][j])
 #            print(j, "      it contains : ",j, BranchListEachTree.values()[i][j])
         print("")
 

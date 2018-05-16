@@ -42,7 +42,7 @@ def Find_Loca(histoName):
 
 
 def main():
-    filename = read_file_name("NY_OUTPUT_week1n2.txt")
+    filename = read_file_name("OUTPUT_TWITTER_TXT_generator/NY_OUTPUT_week1n2n3n4.txt")  ##FIXME
     can = TCanvas("can","can")
     can.SetGrid()
     mg = TMultiGraph()
@@ -103,7 +103,7 @@ def main():
     for i in range(len(GR)):
         leg_entry = leg.AddEntry(GR[i], NAME[i],"l")
     leg.Draw()
-    mg.SetTitle("Negative words propotion at NY(week 1&2)")
+    mg.SetTitle("Negative words propotion at NY(week 1&2&3&4)")  ##FIXME
     mg.GetHistogram().GetXaxis().SetTitle("days")
     mg.GetHistogram().GetXaxis().SetTitleOffset(1)
     mg.GetHistogram().GetXaxis().SetLabelSize(0.03)
@@ -126,7 +126,7 @@ def main():
     can.Modified()
     can.Update()
    # can.GetFrame().SetBorderSize( 12 )
-    can.Print("NEG_NY_week1n2.pdf")
+    can.Print("NEG_NY_week1n2n3n4.pdf")   ##FIXME
 
 
 

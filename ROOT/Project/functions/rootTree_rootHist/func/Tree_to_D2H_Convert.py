@@ -24,7 +24,8 @@ def Find_Loca(histoName):
     LOCA = len(histoName)
     for i in range (1,len(histoName)+1):
         if(histoName[-i] == "_"):
-            if((histoName[-i-1]=="f")&(histoName[-i-2]=="_") ):
+#            if((histoName[-i-1]=="f")&(histoName[-i-2]=="_") ):
+            if((histoName[-i-1]=="f")):
                 LOCA = i-1
                 break
             else:
@@ -32,7 +33,7 @@ def Find_Loca(histoName):
     return LOCA
 
 def BranchName(histoName):
-    Loca = Find_Loca(histoName); #print(Loca)
+    Loca = Find_Loca(histoName); #print(histoName,Loca,"!@#!@#!@#")
     BRANCHNAME = histoName.replace(histoName[:-Loca],"")
     return BRANCHNAME
 
@@ -124,8 +125,8 @@ def set_histo_xrange(FILENAME,BRANCHLISTALL, BranchListEachTree):
     while key:
         tree = key.ReadObj()
         for i in range(len(DicNumpyArray_branch)):
-            if(DicNumpyArray_branch.keys()[i] in BranchListEachTree[tree.GetName()]):
-                tree.SetBranchAddress(DicNumpyArray_branch.keys()[i],DicNumpyArray_branch.values()[i])
+            if(list(DicNumpyArray_branch.keys())[i] in BranchListEachTree[tree.GetName()]):
+                tree.SetBranchAddress(list(DicNumpyArray_branch.keys())[i],list(DicNumpyArray_branch.values())[i])
             else:
                 continue
 #            tree.SetBranchAddress(DicNumpyArray_branch.keys()[i], DicNumpyArray_branch.values()[i])
@@ -136,32 +137,32 @@ def set_histo_xrange(FILENAME,BRANCHLISTALL, BranchListEachTree):
         for i in range(ENTRY):                                            #### HISTO RANGE SETTING !!!!
             tree.GetEntry(i)                                              #FIXME #FIXME #FIXME #FIXME #FIXME #FIXME #FIXME below 
             for j in range(len(DicNumpyArray_branch)):                    #### "j" corresponse to branch for one tree on one loop
-                if(DicNumpyArray_branch.keys()[j] in BranchListEachTree[tree.GetName()]):
+                if(list(DicNumpyArray_branch.keys())[j] in BranchListEachTree[tree.GetName()]):
                     pass
                 else:
                     continue
                 if(i==0):                                                 #### And they are in correct order !!!
-                    lowEdge[j] = DicNumpyArray_branch.values()[j][0]        ####### you can set the low & high edge manually #FIXME
-                    highEdge[j] = DicNumpyArray_branch.values()[j][0]      #### e.g.  "lowEdge[j] = -10", "highEdge[j] = 10"
+                    lowEdge[j] = list(DicNumpyArray_branch.values())[j][0]        ####### you can set the low & high edge manually #FIXME
+                    highEdge[j] = list(DicNumpyArray_branch.values())[j][0]      #### e.g.  "lowEdge[j] = -10", "highEdge[j] = 10"
                 else:                                                       ####### and comment all if, else 
-                    if(DicNumpyArray_branch.values()[j][0] < lowEdge[j]):
-                        lowEdge[j] = DicNumpyArray_branch.values()[j][0]
-                    if(DicNumpyArray_branch.values()[j][0] > highEdge[j]):
-                        highEdge[j] = DicNumpyArray_branch.values()[j][0]
+                    if(list(DicNumpyArray_branch.values())[j][0] < lowEdge[j]):
+                        lowEdge[j] = list(DicNumpyArray_branch.values())[j][0]
+                    if(list(DicNumpyArray_branch.values())[j][0] > highEdge[j]):
+                        highEdge[j] = list(DicNumpyArray_branch.values())[j][0]
 #        print(highEdge)
         for k in range(len(DicNumpyArray_branch)):
-            if(DicNumpyArray_branch.keys()[k] in BranchListEachTree[tree.GetName()]):
+            if(list(DicNumpyArray_branch.keys())[k] in BranchListEachTree[tree.GetName()]):
                 pass
             else:
                 continue
             lowEdge[k] = lowEdge[k] - (highEdge[k]-lowEdge[k])*0.05         ###### range setting  #FIXME
             highEdge[k] = highEdge[k] + (highEdge[k]-lowEdge[k])*0.05
         for l in range(len(DicNumpyArray_branch)):
-            if(DicNumpyArray_branch.keys()[l] in BranchListEachTree[tree.GetName()]):
+            if(list(DicNumpyArray_branch.keys())[l] in BranchListEachTree[tree.GetName()]):
                 pass
             else:
                 continue
-            tree_xrange[DicNumpyArray_branch.keys()[l]] = [lowEdge[l], highEdge[l]]
+            tree_xrange[list(DicNumpyArray_branch.keys())[l]] = [lowEdge[l], highEdge[l]]
 
 #        print("\n")
         histo_xrange[tree.GetName()] = tree_xrange
@@ -190,12 +191,12 @@ def Fill_histograms(FILENAME,BRANCHLISTALL,DICHISTLIST,BranchListEachTree):
         it = 0
         tree = key.ReadObj()
         for i in range(len(DicNumpyArray_branch)):
-            if(DicNumpyArray_branch.keys()[i] in BranchListEachTree[tree.GetName()]):
+            if(list(DicNumpyArray_branch.keys())[i] in BranchListEachTree[tree.GetName()]):
                 it = it + 1
                 pass
             else:
                 continue
-            tree.SetBranchAddress(DicNumpyArray_branch.keys()[i], DicNumpyArray_branch.values()[i])
+            tree.SetBranchAddress(list(DicNumpyArray_branch.keys())[i], list(DicNumpyArray_branch.values())[i])
         ENTRY = tree.GetEntries()
 
         if(it==0):
@@ -212,28 +213,28 @@ def Fill_histograms(FILENAME,BRANCHLISTALL,DICHISTLIST,BranchListEachTree):
             if(i%1000 == 0):
                 print("now looping", i, "th Events, total of ", ENTRY, "events")
             for j in range(len(DICHISTLIST)):
-                if(tree.GetName() == DICHISTLIST.keys()[j]):
-                    for k in range(len(DICHISTLIST.values()[j])):     # 6 rotation for histo
+                if(tree.GetName() == list(DICHISTLIST.keys())[j]):
+                    for k in range(len(list(DICHISTLIST.values())[j])):     # 6 rotation for histo
                         jun = 0
                         for jk in range(len(DicNumpyArray_branch)):   # 3 rotation for branch
-                            if(DicNumpyArray_branch.keys()[jk] in BranchListEachTree[tree.GetName()]):
+                            if(list(DicNumpyArray_branch.keys())[jk] in BranchListEachTree[tree.GetName()]):
                                 pass
                             else:
                                 continue
-                            if((DicNumpyArray_branch.keys()[jk] in DICHISTLIST.values()[j][k].GetName()) & (jun==0)):
-                                MOMEM1 = DicNumpyArray_branch.keys()[jk] ; JUN1 = jk
+                            if((list(DicNumpyArray_branch.keys())[jk] in list(DICHISTLIST.values())[j][k].GetName()) & (jun==0)):
+                                MOMEM1 = list(DicNumpyArray_branch.keys())[jk] ; JUN1 = jk
                                 jun = jun + 1
-                            elif((DicNumpyArray_branch.keys()[jk] in DICHISTLIST.values()[j][k].GetName()) & (jun==1)):
-                                MOMEM2 = DicNumpyArray_branch.keys()[jk];  JUN2 = jk
+                            elif((list(DicNumpyArray_branch.keys())[jk] in list(DICHISTLIST.values())[j][k].GetName()) & (jun==1)):
+                                MOMEM2 = list(DicNumpyArray_branch.keys())[jk];  JUN2 = jk
                                 jun = jun + 1
                             else:
                                 continue
 
                             if(jun==2):
-                                if(("X_"+MOMEM1+"_Y_"+MOMEM2) in DICHISTLIST.values()[j][k].GetName()):
-                                    DICHISTLIST[tree.GetName()][k].Fill(DicNumpyArray_branch.values()[JUN1][0],DicNumpyArray_branch.values()[JUN2][0])
-                                elif(("X_"+MOMEM2+"_Y_"+MOMEM1) in DICHISTLIST.values()[j][k].GetName()):
-                                    DICHISTLIST[tree.GetName()][k].Fill(DicNumpyArray_branch.values()[JUN2][0],DicNumpyArray_branch.values()[JUN1][0])
+                                if(("X_"+MOMEM1+"_Y_"+MOMEM2) in list(DICHISTLIST.values())[j][k].GetName()):
+                                    DICHISTLIST[tree.GetName()][k].Fill(list(DicNumpyArray_branch.values())[JUN1][0],list(DicNumpyArray_branch.values())[JUN2][0])
+                                elif(("X_"+MOMEM2+"_Y_"+MOMEM1) in list(DICHISTLIST.values())[j][k].GetName()):
+                                    DICHISTLIST[tree.GetName()][k].Fill(list(DicNumpyArray_branch.values())[JUN2][0],list(DicNumpyArray_branch.values())[JUN1][0])
 
                 else:
                     continue
@@ -246,7 +247,7 @@ def Fill_histograms(FILENAME,BRANCHLISTALL,DICHISTLIST,BranchListEachTree):
 
 
 
-def CONVERT_WORKING2D(filename, outputpath = "" , NBins=200):
+def CONVERT_WORKING2D(filename, outputpath = "" , NBins=50, NYBins=50):    ### FIXME
 
     print("*********************************************************************************************")
     print("            This is 2D histo filling process          ")
@@ -284,7 +285,8 @@ def CONVERT_WORKING2D(filename, outputpath = "" , NBins=200):
 #                    hist = TH2D(Name2DHist, Name2DHist, 200, histo_xrange[tree.GetName()][key_b.GetName()][0], histo_xrange[tree.GetName()][key_b.GetName()][1], 200, histo_xrange[tree.GetName()][key_bb.GetName()][0], histo_xrange[tree.GetName()][key_bb.GetName()][1])
 #FIXME #FIXME #FIXME #FIXME #FIXME #FIXME #FIXME #FIXME #FIXME #FIXME #FIXME #FIXME  Set bin number !!!!!
 
-                    hist = TH2D(Name2DHist, Name2DHist, NBins, histo_xrange[tree.GetName()][key_b.GetName()][0], histo_xrange[tree.GetName()][key_b.GetName()][1], NBins, histo_xrange[tree.GetName()][key_bb.GetName()][0], histo_xrange[tree.GetName()][key_bb.GetName()][1])  ##for soomin
+#                    hist = TH2D(Name2DHist, Name2DHist, NBins, histo_xrange[tree.GetName()][key_b.GetName()][0], histo_xrange[tree.GetName()][key_b.GetName()][1], NBins, histo_xrange[tree.GetName()][key_bb.GetName()][0], histo_xrange[tree.GetName()][key_bb.GetName()][1])  ##for soomin
+                    hist = TH2D(Name2DHist, Name2DHist, NBins, histo_xrange[tree.GetName()][key_b.GetName()][0], histo_xrange[tree.GetName()][key_b.GetName()][1], NYBins, histo_xrange[tree.GetName()][key_bb.GetName()][0], histo_xrange[tree.GetName()][key_bb.GetName()][1])  
 
                     histList.append(hist)
                     indicator = indicator + 1
@@ -320,8 +322,8 @@ def CONVERT_WORKING2D(filename, outputpath = "" , NBins=200):
     outfile = TFile(Name_Output_File,"RECREATE")
 
     for i in range(len(dicHistList)):
-        for j in range(len(dicHistList.values()[i])):
-            dicHistList.values()[i][j].Write()
+        for j in range(len(list(dicHistList.values())[i])):
+            list(dicHistList.values())[i][j].Write()
     print("")
     print("////////////////////////////////////////////////")
     print("outputfile : ")
